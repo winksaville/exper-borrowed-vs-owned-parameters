@@ -1,0 +1,20 @@
+[package]
+name = "exper-borrowed-vs-owned-parameters"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.5"
+volatile = "0.4.5"
+
+[dev-dependencies]
+iai = "0.1.1"
+
+[[bench]]
+name = "bench"
+harness = false
+
+[features]
+
