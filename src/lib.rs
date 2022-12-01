@@ -3,7 +3,7 @@
 use std::hint::black_box;
 
 struct Message {
-    v: Vec<u8>
+    v: Vec<u8>,
 }
 
 #[inline(never)]
@@ -42,7 +42,6 @@ fn message_owned_idx_loop(msg: Message) -> (u32, Message) {
     }
     (sum, msg)
 }
-
 
 #[inline(never)]
 fn message_owned_iter_loop(msg: Message) -> (u32, Message) {
