@@ -12,20 +12,20 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/iter/range.rs : 621
 		if self.start < self.end {
-	je .LBB8_1
+	je .LBB1_1
 
 	cmp rsi, 8
-	jae .LBB8_4
+	jae .LBB1_4
 
 	xor eax, eax
 	xor ecx, ecx
-	jmp .LBB8_11
-.LBB8_1:
+	jmp .LBB1_11
+.LBB1_1:
 	xor eax, eax
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 19
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 16
 		}
 	ret
-.LBB8_4:
+.LBB1_4:
 
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/iter/range.rs : 621
 		if self.start < self.end {
@@ -36,7 +36,7 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 	shr r8, 3
 	inc r8
 	test rax, rax
-	je .LBB8_5
+	je .LBB1_5
 
 	mov rax, r8
 	and rax, -2
@@ -46,8 +46,8 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 	pxor xmm1, xmm1
 
 	.p2align	4, 0x90
-.LBB8_7:
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 16
+.LBB1_7:
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 13
 		sum += msg.v[i] as u32
 	movd xmm3, dword ptr [rdi + rdx]
 	movd xmm4, dword ptr [rdi + rdx + 4]
@@ -70,13 +70,13 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 		unsafe { intrinsics::unchecked_add(self, rhs) }
 	add rdx, 16
 	add rax, -2
-	jne .LBB8_7
+	jne .LBB1_7
 
 	test r8b, 1
-	je .LBB8_10
+	je .LBB1_10
 
-.LBB8_9:
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 16
+.LBB1_9:
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 13
 		sum += msg.v[i] as u32
 	movd xmm2, dword ptr [rdi + rdx]
 	movd xmm3, dword ptr [rdi + rdx + 4]
@@ -88,7 +88,7 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 	punpcklwd xmm3, xmm4
 	paddd xmm1, xmm3
 
-.LBB8_10:
+.LBB1_10:
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/iter/range.rs : 621
 		if self.start < self.end {
 	paddd xmm0, xmm1
@@ -98,11 +98,11 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 	paddd xmm0, xmm1
 	movd eax, xmm0
 	cmp rcx, rsi
-	je .LBB8_12
+	je .LBB1_12
 
 	.p2align	4, 0x90
-.LBB8_11:
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 16
+.LBB1_11:
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 13
 		sum += msg.v[i] as u32
 	movzx edx, byte ptr [rdi + rcx]
 
@@ -110,7 +110,7 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 		unsafe { intrinsics::unchecked_add(self, rhs) }
 	inc rcx
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 16
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 13
 		sum += msg.v[i] as u32
 	add eax, edx
 
@@ -120,13 +120,13 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/iter/range.rs : 621
 		if self.start < self.end {
-	jne .LBB8_11
+	jne .LBB1_11
 
-.LBB8_12:
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 19
+.LBB1_12:
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 16
 		}
 	ret
-.LBB8_5:
+.LBB1_5:
 
 	pxor xmm0, xmm0
 	xor edx, edx
@@ -135,7 +135,7 @@ exper_borrowed_vs_owned_parameters::message_borrowed:
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/num/uint_macros.rs : 470
 		unsafe { intrinsics::unchecked_add(self, rhs) }
 	test r8b, 1
-	jne .LBB8_9
-	jmp .LBB8_10
+	jne .LBB1_9
+	jmp .LBB1_10
 
-	.size	exper_borrowed_vs_owned_parameters::message_borrowed, .Lfunc_end8-exper_borrowed_vs_owned_parameters::message_borrowed
+	.size	exper_borrowed_vs_owned_parameters::message_borrowed, .Lfunc_end1-exper_borrowed_vs_owned_parameters::message_borrowed
