@@ -7,11 +7,11 @@ anything about the array content.
 
 Here is the library:
 ```
-wink@3900x 22-11-30T18:39:22.649Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
-$ cat -n src/lib.rs
+wink@3900x 22-12-01T19:30:38.241Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
+$ cat -n src/lib.rs 
      1	/// Investigate the difference between borrowed and
      2	/// owned parameters to functions.
-     3	use rand::{distributions::Uniform, Rng};
+     3	use std::hint::black_box;
      4	
      5	struct Message {
      6	    v: Vec<u8>
@@ -19,96 +19,192 @@ $ cat -n src/lib.rs
      8	
      9	#[inline(never)]
     10	fn message_borrowed(msg: &Message) -> u32 {
-    11	    let mut sum = 0u32;
-    12	    //for v in msg.v.iter() {
-    13	    //    sum += *v as u32;
-    14	    //}
-    15	    for i in 0..msg.v.len() {
-    16	        sum += msg.v[i] as u32
-    17	    }
-    18	    sum
-    19	}
-    20	
-    21	#[inline(never)]
-    22	fn message_owned(msg: Message) -> u32 {
-    23	    let mut sum = 0u32;
-    24	    //for v in msg.v.iter() {
-    25	    //    sum += *v as u32;
-    26	    //}
-    27	    for i in 0..msg.v.len() {
-    28	        sum += msg.v[i] as u32
-    29	    }
-    30	    sum
-    31	}
-    32	
-    33	#[inline(never)]
-    34	fn random_array(count: usize, start_range: u8, end_range: u8) -> Vec<u8> {
-    35	    let range = Uniform::from(start_range..end_range);
-    36	    rand::thread_rng().sample_iter(&range).take(count).collect()
-    37	}
-    38	
-    39	#[inline(never)]
-    40	pub fn invoke_message_borrowed() {
-    41	    let msg = Message { v: random_array(5, 0, 20) };
-    42	    let r1 = message_borrowed(&msg);
-    43	    let msg = Message { v: random_array(5, 30, 50) };
-    44	    let r2 = message_borrowed(&msg);
-    45	    assert!(r1 != r2);
-    46	}
-    47	
-    48	#[inline(never)]
-    49	pub fn invoke_message_owned() {
-    50	    let msg = Message { v: random_array(5, 0, 20) };
-    51	    let r1 = message_owned(msg);
-    52	    let msg = Message { v: random_array(5, 30, 50) };
-    53	    let r2 = message_owned(msg);
-    54	    assert!(r1 != r2);
-    55	}
+    11	    msg.v[0] as u32
+    12	}
+    13	
+    14	#[inline(never)]
+    15	fn message_borrowed_idx_loop(msg: &Message) -> u32 {
+    16	    let mut sum = 0u32;
+    17	    for i in 0..msg.v.len() {
+    18	        sum += msg.v[i] as u32
+    19	    }
+    20	    sum
+    21	}
+    22	
+    23	#[inline(never)]
+    24	fn message_borrowed_iter_loop(msg: &Message) -> u32 {
+    25	    let mut sum = 0u32;
+    26	    for v in msg.v.iter() {
+    27	        sum += *v as u32
+    28	    }
+    29	    sum
+    30	}
+    31	
+    32	#[inline(never)]
+    33	fn message_owned(msg: Message) -> (u32, Message) {
+    34	    (msg.v[0] as u32, msg)
+    35	}
+    36	
+    37	#[inline(never)]
+    38	fn message_owned_idx_loop(msg: Message) -> (u32, Message) {
+    39	    let mut sum = 0u32;
+    40	    for i in 0..msg.v.len() {
+    41	        sum += msg.v[i] as u32
+    42	    }
+    43	    (sum, msg)
+    44	}
+    45	
+    46	
+    47	#[inline(never)]
+    48	fn message_owned_iter_loop(msg: Message) -> (u32, Message) {
+    49	    let mut sum = 0u32;
+    50	    for v in msg.v.iter() {
+    51	        sum += *v as u32
+    52	    }
+    53	    (sum, msg)
+    54	}
+    55	
+    56	#[inline(never)]
+    57	pub fn invoke_message_borrowed() {
+    58	    let msg = Message { v: vec![2] };
+    59	    let r1 = black_box(message_borrowed(&msg));
+    60	    let r2 = black_box(message_borrowed(&msg));
+    61	    assert!(r1 == 2);
+    62	    assert!(r1 == r2);
+    63	}
+    64	
+    65	#[inline(never)]
+    66	pub fn invoke_message_borrowed_idx_loop() {
+    67	    let msg = Message { v: vec![2] };
+    68	    let r1 = black_box(message_borrowed_idx_loop(&msg));
+    69	    let r2 = black_box(message_borrowed_idx_loop(&msg));
+    70	    assert!(r1 == 2);
+    71	    assert!(r1 == r2);
+    72	}
+    73	
+    74	#[inline(never)]
+    75	pub fn invoke_message_borrowed_iter_loop() {
+    76	    let msg = Message { v: vec![2] };
+    77	    let r1 = black_box(message_borrowed_iter_loop(&msg));
+    78	    let r2 = black_box(message_borrowed_iter_loop(&msg));
+    79	    assert!(r1 == 2);
+    80	    assert!(r1 == r2);
+    81	}
+    82	
+    83	#[inline(never)]
+    84	pub fn invoke_message_owned() {
+    85	    let msg = Message { v: vec![3] };
+    86	    let (r1, msg) = black_box(message_owned(msg));
+    87	    let (r2, _msg) = black_box(message_owned(msg));
+    88	    assert!(r1 == 3);
+    89	    assert!(r1 == r2);
+    90	}
+    91	
+    92	#[inline(never)]
+    93	pub fn invoke_message_owned_idx_loop() {
+    94	    let msg = Message { v: vec![3] };
+    95	    let (r1, msg) = black_box(message_owned_idx_loop(msg));
+    96	    let (r2, _msg) = black_box(message_owned_idx_loop(msg));
+    97	    assert!(r1 == 3);
+    98	    assert!(r1 == r2);
+    99	}
+   100	
+   101	#[inline(never)]
+   102	pub fn invoke_message_owned_iter_loop() {
+   103	    let msg = Message { v: vec![3] };
+   104	    let (r1, msg) = black_box(message_owned_iter_loop(msg));
+   105	    let (r2, _msg) = black_box(message_owned_iter_loop(msg));
+   106	    assert!(r1 == 3);
+   107	    assert!(r1 == r2);
+   108	}
+
 ```
 
 Here is main.rs:
 ```
-wink@3900x 22-11-30T18:41:29.537Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+wink@3900x 22-12-01T19:31:45.523Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
 $ cat -n src/main.rs
-     1  use exper_borrowed_vs_owned_parameters::{invoke_message_borrowed, invoke_message_owned};
-     2
-     3  fn main() {
-     4      invoke_message_borrowed();
-     5      invoke_message_owned();
-     6  }
+     1	use exper_borrowed_vs_owned_parameters::{
+     2	    invoke_message_borrowed,
+     3	    invoke_message_borrowed_idx_loop,
+     4	    invoke_message_borrowed_iter_loop,
+     5	    invoke_message_owned,
+     6	    invoke_message_owned_idx_loop,
+     7	    invoke_message_owned_iter_loop,
+     8	};
+     9	
+    10	
+    11	fn main() {
+    12	    invoke_message_borrowed();
+    13	    invoke_message_borrowed_idx_loop();
+    14	    invoke_message_borrowed_iter_loop();
+    15	    invoke_message_owned();
+    16	    invoke_message_owned_idx_loop();
+    17	    invoke_message_owned_iter_loop();
+    18	}
+
 ```
 
 Here are some runs:
 ```
-wink@3900x 22-11-30T18:40:07.298Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+wink@3900x 22-12-01T19:31:02.590Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
 $ cargo run
     Finished dev [unoptimized + debuginfo] target(s) in 0.00s
      Running `target/debug/exper-borrowed-vs-owned-parameters`
-wink@3900x 22-11-30T18:40:09.544Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+wink@3900x 22-12-01T19:32:22.394Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
 $ cargo run --release
-    Finished release [optimized] target(s) in 0.00s
+   Compiling exper-borrowed-vs-owned-parameters v0.1.0 (/home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters)
+    Finished release [optimized] target(s) in 0.21s
      Running `target/release/exper-borrowed-vs-owned-parameters`
+wink@3900x 22-12-01T19:32:28.042Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
+
 ```
 
 ## Benchmarks:
 
-Here is the bench.rs:
+From the runs you can see `borrowed` is faster than `owned`. I was
+initially surprised because in my mind the `owned` would have just
+been passing "pointers"/"references" as `borrowed` is. But no, the
+structs are actually "moves" via a shallow copy.
+See [here](https://hashrust.com/blog/moves-copies-and-clones-in-rust/).
+
+The xxx_idx_loop and xxx_iter_loop that iterators aren't always
+faster. You can see that `message_owned_iter` is a tiny bit slower
+than `message_owned_idx_loop` and for `Message { v: vec![0, 1, 2, 3] }`
+I've seen that iter is always slower! This is nothing more than an
+observation and I'm not sure how much we can trust the `iai` benchmark
+tool, so I'm not making any hard assumptions, just presenting the
+information and may look at it more closely in the future.
+
+Here is the bench.rs, which is almost exactly like main.rs:
 ```
-wink@3900x 22-11-30T18:40:24.125Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
-$ cat -n benches/bench.rs
-     1	use exper_borrowed_vs_owned_parameters::{invoke_message_borrowed, invoke_message_owned};
-     2	
-     3	iai::main!(
-     4	    invoke_message_borrowed,
+wink@3900x 22-12-01T19:33:00.715Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
+$ cat -n benches/bench.rs 
+     1	use exper_borrowed_vs_owned_parameters::{
+     2	    invoke_message_borrowed,
+     3	    invoke_message_borrowed_idx_loop,
+     4	    invoke_message_borrowed_iter_loop,
      5	    invoke_message_owned,
-     6	);
+     6	    invoke_message_owned_idx_loop,
+     7	    invoke_message_owned_iter_loop,
+     8	};
+     9	
+    10	iai::main!(
+    11	    invoke_message_borrowed,
+    12	    invoke_message_borrowed_idx_loop,
+    13	    invoke_message_borrowed_iter_loop,
+    14	    invoke_message_owned,
+    15	    invoke_message_owned_idx_loop,
+    16	    invoke_message_owned_iter_loop,
+    17	);
+
 ```
 
 Benchmark runs:
 ```
-wink@3900x 22-11-30T18:43:15.610Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+wink@3900x 22-12-01T19:34:11.225Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
 $ cargo clean
-wink@3900x 22-11-30T18:43:50.230Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+wink@3900x 22-12-01T19:34:13.666Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
 $ cargo bench
    Compiling libc v0.2.137
    Compiling cfg-if v1.0.0
@@ -135,20 +231,48 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
      Running benches/bench.rs (target/release/deps/bench-13d87267f3a54c65)
 invoke_message_borrowed
-  Instructions:                3286
-  L1 Accesses:                 4326
-  L2 Accesses:                   14
-  RAM Accesses:                 109
-  Estimated Cycles:            8211
+  Instructions:                 188
+  L1 Accesses:                  278
+  L2 Accesses:                    2
+  RAM Accesses:                   3
+  Estimated Cycles:             393
+
+invoke_message_borrowed_idx_loop
+  Instructions:                 202
+  L1 Accesses:                  286
+  L2 Accesses:                    1
+  RAM Accesses:                   6
+  Estimated Cycles:             501
+
+invoke_message_borrowed_iter_loop
+  Instructions:                 204
+  L1 Accesses:                  287
+  L2 Accesses:                    3
+  RAM Accesses:                   5
+  Estimated Cycles:             477
 
 invoke_message_owned
-  Instructions:                3160
-  L1 Accesses:                 4176
-  L2 Accesses:                   14
-  RAM Accesses:                 108
-  Estimated Cycles:            8026
+  Instructions:                 218
+  L1 Accesses:                  334
+  L2 Accesses:                    2
+  RAM Accesses:                   5
+  Estimated Cycles:             519
 
-wink@3900x 22-11-30T18:43:57.303Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+invoke_message_owned_idx_loop
+  Instructions:                 224
+  L1 Accesses:                  329
+  L2 Accesses:                    2
+  RAM Accesses:                   6
+  Estimated Cycles:             549
+
+invoke_message_owned_iter_loop
+  Instructions:                 228
+  L1 Accesses:                  333
+  L2 Accesses:                    2
+  RAM Accesses:                   6
+  Estimated Cycles:             553
+
+wink@3900x 22-12-01T19:34:23.974Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (wip-black-box)
 $ cargo bench
     Finished bench [optimized] target(s) in 0.00s
      Running unittests src/lib.rs (target/release/deps/exper_borrowed_vs_owned_parameters-ce8142689a9f18f0)
@@ -165,24 +289,55 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
      Running benches/bench.rs (target/release/deps/bench-13d87267f3a54c65)
 invoke_message_borrowed
-  Instructions:                3286 (No change)
-  L1 Accesses:                 4326 (No change)
-  L2 Accesses:                   14 (No change)
-  RAM Accesses:                 109 (No change)
-  Estimated Cycles:            8211 (No change)
+  Instructions:                 188 (No change)
+  L1 Accesses:                  278 (No change)
+  L2 Accesses:                    2 (No change)
+  RAM Accesses:                   3 (No change)
+  Estimated Cycles:             393 (No change)
+
+invoke_message_borrowed_idx_loop
+  Instructions:                 202 (No change)
+  L1 Accesses:                  286 (No change)
+  L2 Accesses:                    1 (No change)
+  RAM Accesses:                   6 (No change)
+  Estimated Cycles:             501 (No change)
+
+invoke_message_borrowed_iter_loop
+  Instructions:                 204 (No change)
+  L1 Accesses:                  287 (No change)
+  L2 Accesses:                    3 (No change)
+  RAM Accesses:                   5 (No change)
+  Estimated Cycles:             477 (No change)
 
 invoke_message_owned
-  Instructions:                3160 (No change)
-  L1 Accesses:                 4176 (No change)
-  L2 Accesses:                   14 (No change)
-  RAM Accesses:                 108 (No change)
-  Estimated Cycles:            8026 (No change)
+  Instructions:                 218 (No change)
+  L1 Accesses:                  334 (No change)
+  L2 Accesses:                    2 (No change)
+  RAM Accesses:                   5 (No change)
+  Estimated Cycles:             519 (No change)
+
+invoke_message_owned_idx_loop
+  Instructions:                 224 (No change)
+  L1 Accesses:                  329 (No change)
+  L2 Accesses:                    2 (No change)
+  RAM Accesses:                   6 (No change)
+  Estimated Cycles:             549 (No change)
+
+invoke_message_owned_iter_loop
+  Instructions:                 228 (No change)
+  L1 Accesses:                  333 (No change)
+  L2 Accesses:                    2 (No change)
+  RAM Accesses:                   6 (No change)
+  Estimated Cycles:             553 (No change)
+
 ```
 
 ## Asm code
 
 The assembler code can be found at
-https://github.com/winksaville/exper-borrowed-vs-owned-parameters/tree/main/asm
+[/asm](https://github.com/winksaville/exper-borrowed-vs-owned-parameters/tree/main/asm)
+and is generated with `./gen_asm.sh`.
+
 
 ## License
 
