@@ -11,14 +11,11 @@ exper_borrowed_vs_owned_parameters::invoke_message_borrowed_idx_loop:
 	.cfi_lsda 27, .Lexception2
 	push rbp
 	.cfi_def_cfa_offset 16
-	push r14
-	.cfi_def_cfa_offset 24
 	push rbx
-	.cfi_def_cfa_offset 32
-	sub rsp, 32
-	.cfi_def_cfa_offset 64
-	.cfi_offset rbx, -32
-	.cfi_offset r14, -24
+	.cfi_def_cfa_offset 24
+	sub rsp, 24
+	.cfi_def_cfa_offset 48
+	.cfi_offset rbx, -24
 	.cfi_offset rbp, -16
 
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/alloc/src/alloc.rs : 95
@@ -36,35 +33,23 @@ exper_borrowed_vs_owned_parameters::invoke_message_borrowed_idx_loop:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 67
 		let msg = Message { v: vec![2] };
 	mov byte ptr [rax], 2
-	mov qword ptr [rsp + 8], rax
+	mov qword ptr [rsp], rax
 	movaps xmm0, xmmword ptr [rip + .LCPI8_0]
-	movups xmmword ptr [rsp + 16], xmm0
+	movups xmmword ptr [rsp + 8], xmm0
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 68
-		let r1 = black_box(message_borrowed_idx_loop(&msg));
+		let r1 = message_borrowed_idx_loop(&msg);
 	mov esi, 1
 	mov rdi, rax
 	call exper_borrowed_vs_owned_parameters::message_borrowed_idx_loop
 
-		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/hint.rs : 226
-		crate::intrinsics::black_box(dummy)
-	mov dword ptr [rsp + 4], eax
-	lea r14, [rsp + 4]
-	#APP
-	#NO_APP
-	mov ebp, dword ptr [rsp + 4]
+	mov ebp, eax
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 69
-		let r2 = black_box(message_borrowed_idx_loop(&msg));
+		let r2 = message_borrowed_idx_loop(&msg);
 	mov esi, 1
 	mov rdi, rbx
 	call exper_borrowed_vs_owned_parameters::message_borrowed_idx_loop
-
-		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/hint.rs : 226
-		crate::intrinsics::black_box(dummy)
-	mov dword ptr [rsp + 4], eax
-	#APP
-	#NO_APP
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 70
 		assert!(r1 == 2);
@@ -73,7 +58,7 @@ exper_borrowed_vs_owned_parameters::invoke_message_borrowed_idx_loop:
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 71
 		assert!(r1 == r2);
-	cmp dword ptr [rsp + 4], 2
+	cmp eax, 2
 	jne .LBB8_6
 
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/alloc/src/alloc.rs : 113
@@ -81,23 +66,17 @@ exper_borrowed_vs_owned_parameters::invoke_message_borrowed_idx_loop:
 	mov esi, 1
 	mov edx, 1
 	mov rdi, rbx
-	call qword ptr [rip + __rust_dealloc@GOTPCREL]
-
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 72
-		}
-	add rsp, 32
-	.cfi_def_cfa_offset 32
+	add rsp, 24
+	.cfi_def_cfa_offset 24
 	pop rbx
 
-	.cfi_def_cfa_offset 24
-	pop r14
 	.cfi_def_cfa_offset 16
 	pop rbp
 	.cfi_def_cfa_offset 8
-	ret
+	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
 .LBB8_9:
-	.cfi_def_cfa_offset 64
+	.cfi_def_cfa_offset 48
 		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/alloc/src/alloc.rs : 328
 		Err(_) => handle_alloc_error(layout),
 	mov edi, 1
@@ -121,7 +100,7 @@ exper_borrowed_vs_owned_parameters::invoke_message_borrowed_idx_loop:
 	ud2
 
 	mov rbx, rax
-	lea rdi, [rsp + 8]
+	mov rdi, rsp
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 72
 		}
 	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::Message>

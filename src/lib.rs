@@ -1,6 +1,6 @@
 /// Investigate the difference between borrowed and
 /// owned parameters to functions.
-use std::hint::black_box;
+
 
 struct Message {
     v: Vec<u8>,
@@ -43,6 +43,7 @@ fn message_owned_idx_loop(msg: Message) -> (u32, Message) {
     (sum, msg)
 }
 
+
 #[inline(never)]
 fn message_owned_iter_loop(msg: Message) -> (u32, Message) {
     let mut sum = 0u32;
@@ -55,8 +56,8 @@ fn message_owned_iter_loop(msg: Message) -> (u32, Message) {
 #[inline(never)]
 pub fn invoke_message_borrowed() {
     let msg = Message { v: vec![2] };
-    let r1 = black_box(message_borrowed(&msg));
-    let r2 = black_box(message_borrowed(&msg));
+    let r1 = message_borrowed(&msg);
+    let r2 = message_borrowed(&msg);
     assert!(r1 == 2);
     assert!(r1 == r2);
 }
@@ -64,8 +65,8 @@ pub fn invoke_message_borrowed() {
 #[inline(never)]
 pub fn invoke_message_borrowed_idx_loop() {
     let msg = Message { v: vec![2] };
-    let r1 = black_box(message_borrowed_idx_loop(&msg));
-    let r2 = black_box(message_borrowed_idx_loop(&msg));
+    let r1 = message_borrowed_idx_loop(&msg);
+    let r2 = message_borrowed_idx_loop(&msg);
     assert!(r1 == 2);
     assert!(r1 == r2);
 }
@@ -73,8 +74,8 @@ pub fn invoke_message_borrowed_idx_loop() {
 #[inline(never)]
 pub fn invoke_message_borrowed_iter_loop() {
     let msg = Message { v: vec![2] };
-    let r1 = black_box(message_borrowed_iter_loop(&msg));
-    let r2 = black_box(message_borrowed_iter_loop(&msg));
+    let r1 = message_borrowed_iter_loop(&msg);
+    let r2 = message_borrowed_iter_loop(&msg);
     assert!(r1 == 2);
     assert!(r1 == r2);
 }
@@ -82,8 +83,8 @@ pub fn invoke_message_borrowed_iter_loop() {
 #[inline(never)]
 pub fn invoke_message_owned() {
     let msg = Message { v: vec![3] };
-    let (r1, msg) = black_box(message_owned(msg));
-    let (r2, _msg) = black_box(message_owned(msg));
+    let (r1, msg) = message_owned(msg);
+    let (r2, _msg) = message_owned(msg);
     assert!(r1 == 3);
     assert!(r1 == r2);
 }
@@ -91,8 +92,8 @@ pub fn invoke_message_owned() {
 #[inline(never)]
 pub fn invoke_message_owned_idx_loop() {
     let msg = Message { v: vec![3] };
-    let (r1, msg) = black_box(message_owned_idx_loop(msg));
-    let (r2, _msg) = black_box(message_owned_idx_loop(msg));
+    let (r1, msg) = message_owned_idx_loop(msg);
+    let (r2, _msg) = message_owned_idx_loop(msg);
     assert!(r1 == 3);
     assert!(r1 == r2);
 }
@@ -100,8 +101,8 @@ pub fn invoke_message_owned_idx_loop() {
 #[inline(never)]
 pub fn invoke_message_owned_iter_loop() {
     let msg = Message { v: vec![3] };
-    let (r1, msg) = black_box(message_owned_iter_loop(msg));
-    let (r2, _msg) = black_box(message_owned_iter_loop(msg));
+    let (r1, msg) = message_owned_iter_loop(msg);
+    let (r2, _msg) = message_owned_iter_loop(msg);
     assert!(r1 == 3);
     assert!(r1 == r2);
 }
