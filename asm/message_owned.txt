@@ -3,7 +3,7 @@
 	.type	exper_borrowed_vs_owned_parameters::message_owned,@function
 exper_borrowed_vs_owned_parameters::message_owned:
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 33
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 57
 		fn message_owned(msg: Message) -> (u32, Message) {
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.rust_eh_personality
@@ -23,7 +23,7 @@ exper_borrowed_vs_owned_parameters::message_owned:
 	cmp qword ptr [rsi + 16], 0
 	je .LBB4_1
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 34
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 58
 		(msg.v[0] as u32, msg)
 	mov rax, qword ptr [rbx]
 	mov rcx, qword ptr [rbx + 16]
@@ -32,7 +32,7 @@ exper_borrowed_vs_owned_parameters::message_owned:
 	movups xmm0, xmmword ptr [rbx]
 	movups xmmword ptr [rdi + 8], xmm0
 	mov dword ptr [rdi], eax
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 35
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 59
 		}
 	add rsp, 8
 	.cfi_def_cfa_offset 24
@@ -56,7 +56,7 @@ exper_borrowed_vs_owned_parameters::message_owned:
 	ud2
 
 	mov r14, rax
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 35
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 59
 		}
 	mov rdi, rbx
 	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::Message>

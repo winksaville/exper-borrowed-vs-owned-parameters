@@ -1,0 +1,38 @@
+.section .text.exper_borrowed_vs_owned_parameters::messagemf_borrowed,"ax",@progbits
+	.p2align	4, 0x90
+	.type	exper_borrowed_vs_owned_parameters::messagemf_borrowed,@function
+exper_borrowed_vs_owned_parameters::messagemf_borrowed:
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 62
+		fn messagemf_borrowed(msg: &MessageMf) -> u32 {
+	.cfi_startproc
+	push rax
+	.cfi_def_cfa_offset 16
+
+		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/slice/index.rs : 259
+		&(*slice)[self]
+	test rsi, rsi
+	je .LBB5_1
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 63
+		msg.v[0] as u32
+	movzx eax, byte ptr [rdi]
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 64
+		}
+	pop rcx
+	.cfi_def_cfa_offset 8
+	ret
+.LBB5_1:
+	.cfi_def_cfa_offset 16
+
+		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/slice/index.rs : 259
+		&(*slice)[self]
+	lea rdx, [rip + .L__unnamed_3]
+	xor edi, edi
+
+	xor esi, esi
+
+	call qword ptr [rip + core::panicking::panic_bounds_check@GOTPCREL]
+	ud2
+
+	.size	exper_borrowed_vs_owned_parameters::messagemf_borrowed, .Lfunc_end5-exper_borrowed_vs_owned_parameters::messagemf_borrowed
