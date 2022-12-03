@@ -39,47 +39,43 @@ passing more directly.
 
 For example, borrowed parameters:
 
- * invoke_message_borrowed:    525
- * invoke_message_default:   - 375
- *                difference = 150
-
- * invoke_messagemf_borrowed:  672
- * invoke_messagemf_default: - 526
+ * invoke_message_borrowed:    487
+ * invoke_message_default:   - 341
  *                difference = 146
 
-we only see a small difference because pointers are small,
- * 150 - 146 = 4
+ * invoke_messagemf_borrowed:  570
+ * invoke_messagemf_default: - 454
+ *                difference = 116
+
+we only see a small difference because pointers are small (bigger than I'd hoped for!)),
+ * 146 - 116 = 30
 
 But with owned parameters:
 
- * invoke_message_owned:       625
- * invoke_message_default:   - 375
- *                difference = 250
+ * invoke_message_owned:       587
+ * invoke_message_default:   - 341
+ *                difference = 246
 
- * invoke_messagemf_owned:    1026
- * invoke_messagemf_default: - 526
- *                difference = 500
+ * invoke_messagemf_owned:     928
+ * invoke_messagemf_default: - 454
+ *                difference = 474
 
 a much larger difference is seen because "owned" parameters
 are "moved" with a shallow copy and MessageMf is larger than
 Message:
- * 500 - 250 = 250
+ * 474 - 246 = 228
 
-Benchmark runs NOTE: the use of `taskset 1` so we always use the same CPU:
+Benchmark runs. NOTE: the use of `taskset 1` so we always use the same CPU.
+I also ran this **without** clean and the previous run was without
+`invoke_messagemf_borrowed`. So below we see the "(change)" after adding
+`invoke_messagemf_borrowed2`. Alas, there is non-trivial differences in
+the output of `taskset 1 cargo bench`. Of note the number of instructions
+were identical, but in most of the other lines there are differences :(
 ```
-wink@3900x 22-12-03T21:55:12.832Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
-$ cargo clean ; taskset 1 cargo bench
-   Compiling libc v0.2.138
-   Compiling cfg-if v1.0.0
-   Compiling getrandom v0.2.8
-   Compiling rand_core v0.6.4
-   Compiling ppv-lite86 v0.2.17
-   Compiling rand_chacha v0.3.1
-   Compiling rand v0.8.5
-   Compiling volatile v0.4.5
+wink@3900x 22-12-03T22:12:43.165Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+$ taskset -c 1 cargo bench
    Compiling exper-borrowed-vs-owned-parameters v0.3.0 (/home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters)
-   Compiling iai v0.1.1
-    Finished bench [optimized] target(s) in 2.94s
+    Finished bench [optimized] target(s) in 0.56s
      Running unittests src/lib.rs (target/release/deps/exper_borrowed_vs_owned_parameters-4aa3e300c69dce12)
 
 running 0 tests
@@ -94,48 +90,55 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
      Running benches/bench.rs (target/release/deps/bench-25abf9316704aeaf)
 invoke_message_default
-  Instructions:                 151
-  L1 Accesses:                  215
-  L2 Accesses:                    4
-  RAM Accesses:                   4
-  Estimated Cycles:             375
+  Instructions:                 151 (No change)
+  L1 Accesses:                  216 (+0.465116%)
+  L2 Accesses:                    4 (No change)
+  RAM Accesses:                   3 (-25.00000%)
+  Estimated Cycles:             341 (-9.066667%)
 
 invoke_messagemf_default
-  Instructions:                 161
-  L1 Accesses:                  231
-  L2 Accesses:                    3
-  RAM Accesses:                   8
-  Estimated Cycles:             526
+  Instructions:                 161 (No change)
+  L1 Accesses:                  234 (+1.298701%)
+  L2 Accesses:                    2 (-33.33333%)
+  RAM Accesses:                   6 (-25.00000%)
+  Estimated Cycles:             454 (-13.68821%)
 
 invoke_message_borrowed
-  Instructions:                 182
-  L1 Accesses:                  260
-  L2 Accesses:                    4
-  RAM Accesses:                   7
-  Estimated Cycles:             525
+  Instructions:                 182 (No change)
+  L1 Accesses:                  262 (+0.769231%)
+  L2 Accesses:                    3 (-25.00000%)
+  RAM Accesses:                   6 (-14.28571%)
+  Estimated Cycles:             487 (-7.238095%)
 
 invoke_message_owned
-  Instructions:                 213
-  L1 Accesses:                  320
-  L2 Accesses:                    5
-  RAM Accesses:                   8
-  Estimated Cycles:             625
+  Instructions:                 213 (No change)
+  L1 Accesses:                  322 (+0.625000%)
+  L2 Accesses:                    4 (-20.00000%)
+  RAM Accesses:                   7 (-12.50000%)
+  Estimated Cycles:             587 (-6.080000%)
 
 invoke_messagemf_borrowed
-  Instructions:                 192
-  L1 Accesses:                  277
-  L2 Accesses:                    2
-  RAM Accesses:                  11
-  Estimated Cycles:             672
+  Instructions:                 192 (No change)
+  L1 Accesses:                  280 (+1.083032%)
+  L2 Accesses:                    2 (No change)
+  RAM Accesses:                   8 (-27.27273%)
+  Estimated Cycles:             570 (-15.17857%)
 
 invoke_messagemf_owned
-  Instructions:                 267
-  L1 Accesses:                  421
-  L2 Accesses:                    2
-  RAM Accesses:                  17
-  Estimated Cycles:            1026
+  Instructions:                 267 (No change)
+  L1 Accesses:                  423 (+0.475059%)
+  L2 Accesses:                    3 (+50.00000%)
+  RAM Accesses:                  14 (-17.64706%)
+  Estimated Cycles:             928 (-9.551657%)
 
-wink@3900x 22-12-03T21:55:28.091Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
+invoke_messagemf_borrowed2
+  Instructions:                 192
+  L1 Accesses:                  282
+  L2 Accesses:                    1
+  RAM Accesses:                   7
+  Estimated Cycles:             532
+
+wink@3900x 22-12-03T22:12:55.881Z:~/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters (main)
 ```
 
 ## Asm code

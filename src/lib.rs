@@ -113,3 +113,12 @@ pub fn invoke_messagemf_owned() {
     assert!(r1 == 2);
     assert!(r1 == r2);
 }
+
+#[inline(never)]
+pub fn invoke_messagemf_borrowed2() {
+    let msg = MessageMf::default();
+    let r1 = messagemf_borrowed(&msg);
+    let r2 = messagemf_borrowed(&msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
