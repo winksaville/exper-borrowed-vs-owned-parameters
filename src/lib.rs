@@ -1,3 +1,4 @@
+#![feature(fn_align)]
 /// Investigate the difference between borrowed and
 /// owned parameters to functions.
 
@@ -48,36 +49,43 @@ impl Default for MessageMf {
     }
 }
 
+#[repr(align(32))]
 #[inline(never)]
 fn message_borrowed(msg: &Message) -> u32 {
     msg.v[0] as u32
 }
 
+#[repr(align(32))]
 #[inline(never)]
 fn message_owned(msg: Message) -> (u32, Message) {
     (msg.v[0] as u32, msg)
 }
 
+#[repr(align(32))]
 #[inline(never)]
 fn messagemf_borrowed(msg: &MessageMf) -> u32 {
     msg.v[0] as u32
 }
 
+#[repr(align(32))]
 #[inline(never)]
 fn messagemf_owned(msg: MessageMf) -> (u32, MessageMf) {
     (msg.v[0] as u32, msg)
 }
 
+#[repr(align(32))]
 #[inline(never)]
 pub fn invoke_message_default() {
     Message::default();
 }
 
+#[repr(align(32))]
 #[inline(never)]
 pub fn invoke_messagemf_default() {
     MessageMf::default();
 }
 
+#[repr(align(32))]
 #[inline(never)]
 pub fn invoke_message_borrowed() {
     let msg = Message::default();
@@ -87,6 +95,7 @@ pub fn invoke_message_borrowed() {
     assert!(r1 == r2);
 }
 
+#[repr(align(32))]
 #[inline(never)]
 pub fn invoke_message_owned() {
     let msg = Message::default();
@@ -95,6 +104,8 @@ pub fn invoke_message_owned() {
     assert!(r1 == 2);
     assert!(r1 == r2);
 }
+
+#[repr(align(32))]
 #[inline(never)]
 pub fn invoke_messagemf_borrowed() {
     let msg = MessageMf::default();
@@ -104,6 +115,7 @@ pub fn invoke_messagemf_borrowed() {
     assert!(r1 == r2);
 }
 
+#[repr(align(32))]
 #[inline(never)]
 pub fn invoke_messagemf_owned() {
     let msg = MessageMf::default();
