@@ -18,14 +18,14 @@ exper_borrowed_vs_owned_parameters::messagemf_owned:
 	.cfi_offset r14, -16
 	mov rbx, rsi
 
-		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/slice/index.rs : 259
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/slice/index.rs : 260
 		&(*slice)[self]
-	cmp qword ptr [rsi + 16], 0
-	je .LBB6_1
+	cmp qword ptr [rsi + 64], 0
+	je .LBB7_1
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 68
 		(msg.v[0] as u32, msg)
-	mov rax, qword ptr [rbx]
+	mov rax, qword ptr [rbx + 56]
 	movzx eax, byte ptr [rax]
 	mov rcx, qword ptr [rbx + 80]
 	mov qword ptr [rdi + 88], rcx
@@ -51,10 +51,10 @@ exper_borrowed_vs_owned_parameters::messagemf_owned:
 	.cfi_def_cfa_offset 8
 	ret
 
-.LBB6_1:
+.LBB7_1:
 	.cfi_def_cfa_offset 32
 
-		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/slice/index.rs : 259
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/slice/index.rs : 260
 		&(*slice)[self]
 	lea rdx, [rip + .L__unnamed_4]
 	xor edi, edi
@@ -67,9 +67,9 @@ exper_borrowed_vs_owned_parameters::messagemf_owned:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 69
 		}
 	mov rdi, rbx
-	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::Message>
+	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::MessageMf>
 	mov rdi, r14
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::messagemf_owned, .Lfunc_end6-exper_borrowed_vs_owned_parameters::messagemf_owned
+	.size	exper_borrowed_vs_owned_parameters::messagemf_owned, .Lfunc_end7-exper_borrowed_vs_owned_parameters::messagemf_owned

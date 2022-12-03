@@ -9,10 +9,10 @@ exper_borrowed_vs_owned_parameters::messagemf_borrowed:
 	push rax
 	.cfi_def_cfa_offset 16
 
-		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/slice/index.rs : 259
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/slice/index.rs : 260
 		&(*slice)[self]
 	test rsi, rsi
-	je .LBB5_1
+	je .LBB6_1
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 63
 		msg.v[0] as u32
@@ -22,10 +22,10 @@ exper_borrowed_vs_owned_parameters::messagemf_borrowed:
 	pop rcx
 	.cfi_def_cfa_offset 8
 	ret
-.LBB5_1:
+.LBB6_1:
 	.cfi_def_cfa_offset 16
 
-		// /rustc/ff8c8dfbe66701531e3e5e335c28c544d0fbc945/library/core/src/slice/index.rs : 259
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/slice/index.rs : 260
 		&(*slice)[self]
 	lea rdx, [rip + .L__unnamed_3]
 	xor edi, edi
@@ -35,4 +35,4 @@ exper_borrowed_vs_owned_parameters::messagemf_borrowed:
 	call qword ptr [rip + core::panicking::panic_bounds_check@GOTPCREL]
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::messagemf_borrowed, .Lfunc_end5-exper_borrowed_vs_owned_parameters::messagemf_borrowed
+	.size	exper_borrowed_vs_owned_parameters::messagemf_borrowed, .Lfunc_end6-exper_borrowed_vs_owned_parameters::messagemf_borrowed
