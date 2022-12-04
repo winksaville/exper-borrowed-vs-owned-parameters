@@ -1,0 +1,106 @@
+.section .text.exper_borrowed_vs_owned_parameters::invoke_msgsf_borrowed,"ax",@progbits
+	.globl	exper_borrowed_vs_owned_parameters::invoke_msgsf_borrowed
+	.p2align	4, 0x90
+	.type	exper_borrowed_vs_owned_parameters::invoke_msgsf_borrowed,@function
+exper_borrowed_vs_owned_parameters::invoke_msgsf_borrowed:
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 372
+		pub fn invoke_msgsf_borrowed() {
+	.cfi_startproc
+	.cfi_personality 155, DW.ref.rust_eh_personality
+	.cfi_lsda 27, .Lexception5
+	push rbx
+	.cfi_def_cfa_offset 16
+	sub rsp, 96
+	.cfi_def_cfa_offset 112
+	.cfi_offset rbx, -16
+	lea rbx, [rsp + 8]
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 373
+		let msg = MsgSf::default();
+	mov rdi, rbx
+	call qword ptr [rip + <exper_borrowed_vs_owned_parameters::MsgSf as core::default::Default>::default@GOTPCREL]
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 374
+		let r1 = msgsf_borrowed(&msg);
+	mov rdi, rbx
+	call qword ptr [rip + exper_borrowed_vs_owned_parameters::msgsf_borrowed@GOTPCREL]
+
+	mov ebx, eax
+
+	lea rdi, [rsp + 8]
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 375
+		let r2 = msgsf_borrowed(&msg);
+	call qword ptr [rip + exper_borrowed_vs_owned_parameters::msgsf_borrowed@GOTPCREL]
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 376
+		assert!(r1 == 2);
+	cmp ebx, 2
+	jne .LBB20_3
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 377
+		assert!(r1 == r2);
+	cmp eax, 2
+	jne .LBB20_7
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
+	mov rsi, qword ptr [rsp + 56]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
+		if T::IS_ZST || self.cap == 0 {
+	test rsi, rsi
+	je .LBB20_9
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
+	mov rdi, qword ptr [rsp + 64]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/alloc/layout.rs : 452
+		if element_size != 0 && n > Layout::max_size_for_align(align) / element_size {
+	mov rdx, rsi
+	not rdx
+	shr rdx, 63
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 113
+		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
+	add rsp, 96
+	.cfi_def_cfa_offset 16
+	pop rbx
+	.cfi_def_cfa_offset 8
+	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
+
+.LBB20_9:
+	.cfi_def_cfa_offset 112
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 378
+		}
+	add rsp, 96
+	.cfi_def_cfa_offset 16
+	pop rbx
+	.cfi_def_cfa_offset 8
+	ret
+.LBB20_3:
+	.cfi_def_cfa_offset 112
+	lea rdx, [rip + .L__unnamed_13]
+	mov esi, 25
+	lea rdi, [rip + .L__unnamed_8]
+	jmp .LBB20_4
+.LBB20_7:
+	lea rdx, [rip + .L__unnamed_14]
+	mov esi, 26
+	lea rdi, [rip + .L__unnamed_10]
+.LBB20_4:
+
+	call qword ptr [rip + core::panicking::panic@GOTPCREL]
+
+	ud2
+
+	mov rbx, rax
+	lea rdi, [rsp + 8]
+	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::MsgSf>
+	mov rdi, rbx
+	call _Unwind_Resume@PLT
+	ud2
+
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgsf_borrowed, .Lfunc_end20-exper_borrowed_vs_owned_parameters::invoke_msgsf_borrowed

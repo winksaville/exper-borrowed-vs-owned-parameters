@@ -1,0 +1,51 @@
+.section .text.exper_borrowed_vs_owned_parameters::invoke_msgmf_default,"ax",@progbits
+	.globl	exper_borrowed_vs_owned_parameters::invoke_msgmf_default
+	.p2align	4, 0x90
+	.type	exper_borrowed_vs_owned_parameters::invoke_msgmf_default,@function
+exper_borrowed_vs_owned_parameters::invoke_msgmf_default:
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 331
+		pub fn invoke_msgmf_default() {
+	.cfi_startproc
+	sub rsp, 648
+	.cfi_def_cfa_offset 656
+	mov rdi, rsp
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 332
+		MsgMf::default();
+	call qword ptr [rip + <exper_borrowed_vs_owned_parameters::MsgMf as core::default::Default>::default@GOTPCREL]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
+	mov rsi, qword ptr [rsp + 480]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
+		if T::IS_ZST || self.cap == 0 {
+	test rsi, rsi
+	je .LBB16_1
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
+	mov rdi, qword ptr [rsp + 488]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/alloc/layout.rs : 452
+		if element_size != 0 && n > Layout::max_size_for_align(align) / element_size {
+	mov rdx, rsi
+	not rdx
+	shr rdx, 63
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 113
+		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
+	add rsp, 648
+	.cfi_def_cfa_offset 8
+	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
+
+.LBB16_1:
+	.cfi_def_cfa_offset 656
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 333
+		}
+	add rsp, 648
+	.cfi_def_cfa_offset 8
+	ret
+
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgmf_default, .Lfunc_end16-exper_borrowed_vs_owned_parameters::invoke_msgmf_default

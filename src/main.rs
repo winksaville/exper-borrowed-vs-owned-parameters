@@ -1,15 +1,20 @@
 use exper_borrowed_vs_owned_parameters::{
-    invoke_message_borrowed, invoke_message_default, invoke_message_owned,
-    invoke_messagemf_borrowed, invoke_messagemf_default, invoke_messagemf_owned,
-    invoke_messagemf_borrowed2,
+    invoke_msgmf_borrowed, invoke_msgmf_default, invoke_msgmf_owned, invoke_msgnf_borrowed,
+    invoke_msgnf_default, invoke_msgnf_owned, invoke_msgof_borrowed, invoke_msgof_default,
+    invoke_msgof_owned, invoke_msgsf_borrowed, invoke_msgsf_default, invoke_msgsf_owned,
 };
 
 fn main() {
-    invoke_message_default();
-    invoke_messagemf_default();
-    invoke_message_borrowed();
-    invoke_message_owned();
-    invoke_messagemf_borrowed();
-    invoke_messagemf_owned();
-    invoke_messagemf_borrowed2();
+    invoke_msgnf_default();
+    invoke_msgof_default();
+    invoke_msgsf_default();
+    invoke_msgmf_default();
+    invoke_msgnf_borrowed();
+    invoke_msgnf_owned();
+    invoke_msgof_borrowed();
+    invoke_msgof_owned();
+    invoke_msgsf_borrowed();
+    invoke_msgsf_owned();
+    invoke_msgmf_borrowed();
+    invoke_msgmf_owned();
 }

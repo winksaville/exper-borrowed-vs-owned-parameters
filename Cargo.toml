@@ -2,12 +2,13 @@
 name = "exper-borrowed-vs-owned-parameters"
 authors = [ "Wink Saville <wink@saville.com" ]
 license = "MIT OR Apache-2.0"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+criterion = "0.4.0"
 rand = "0.8.5"
 volatile = "0.4.5"
 
@@ -15,8 +16,15 @@ volatile = "0.4.5"
 iai = "0.1.1"
 
 [[bench]]
-name = "bench"
+name = "bench-crit"
+path = "benches/crit_bench.rs"
 harness = false
+
+[[bench]]
+name = "bench-iai"
+path = "benches/iai_bench.rs"
+harness = false
+
 
 [features]
 

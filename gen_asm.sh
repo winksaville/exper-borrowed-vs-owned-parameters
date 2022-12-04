@@ -10,14 +10,16 @@ gen_asm () {
     cargo asm --rust --lib "exper_borrowed_vs_owned_parameters::$1" > asm/$1.txt
 }
 
-gen_asm "message_borrowed"
-gen_asm "message_owned"
-gen_asm "messagemf_borrowed"
-gen_asm "messagemf_owned"
-gen_asm "invoke_message_default"
-gen_asm "invoke_messagemf_default"
-gen_asm "invoke_message_borrowed"
-gen_asm "invoke_message_owned"
-gen_asm "invoke_messagemf_borrowed"
-gen_asm "invoke_messagemf_owned"
-gen_asm "invoke_messagemf_borrowed2"
+#gen_asm "invoke_msgnf_default" # optimized away?
+gen_asm "invoke_msgof_default"
+gen_asm "invoke_msgsf_default"
+gen_asm "invoke_msgmf_default"
+#gen_asm "invoke_msgnf_borrowed" # optimized away?
+gen_asm "invoke_msgnf_owned"     # This is actually just a `ret`
+gen_asm "invoke_msgof_borrowed"
+gen_asm "invoke_msgof_owned"
+gen_asm "invoke_msgsf_borrowed"
+gen_asm "invoke_msgsf_owned"
+gen_asm "invoke_msgmf_borrowed"
+gen_asm "invoke_msgmf_owned"
+

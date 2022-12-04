@@ -1,27 +1,30 @@
-.section .text.exper_borrowed_vs_owned_parameters::invoke_messagemf_owned,"ax",@progbits
-	.globl	exper_borrowed_vs_owned_parameters::invoke_messagemf_owned
+.section .text.exper_borrowed_vs_owned_parameters::invoke_msgsf_owned,"ax",@progbits
+	.globl	exper_borrowed_vs_owned_parameters::invoke_msgsf_owned
 	.p2align	4, 0x90
-	.type	exper_borrowed_vs_owned_parameters::invoke_messagemf_owned,@function
-exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
+	.type	exper_borrowed_vs_owned_parameters::invoke_msgsf_owned,@function
+exper_borrowed_vs_owned_parameters::invoke_msgsf_owned:
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 109
-		pub fn invoke_messagemf_owned() {
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 381
+		pub fn invoke_msgsf_owned() {
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.rust_eh_personality
-	.cfi_lsda 27, .Lexception5
-	push rbx
+	.cfi_lsda 27, .Lexception6
+	push r14
 	.cfi_def_cfa_offset 16
-	sub rsp, 368
+	push rbx
+	.cfi_def_cfa_offset 24
+	sub rsp, 360
 	.cfi_def_cfa_offset 384
-	.cfi_offset rbx, -16
+	.cfi_offset rbx, -24
+	.cfi_offset r14, -16
 	lea rdi, [rsp + 184]
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 110
-		let msg = MessageMf::default();
-	call qword ptr [rip + <exper_borrowed_vs_owned_parameters::MessageMf as core::default::Default>::default@GOTPCREL]
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 382
+		let msg = MsgSf::default();
+	call qword ptr [rip + <exper_borrowed_vs_owned_parameters::MsgSf as core::default::Default>::default@GOTPCREL]
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 111
-		let (r1, msg) = messagemf_owned(msg);
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 383
+		let (r1, msg) = msgsf_owned(msg);
 	mov rax, qword ptr [rsp + 264]
 	mov qword ptr [rsp + 80], rax
 	movups xmm0, xmmword ptr [rsp + 248]
@@ -34,9 +37,10 @@ exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
 	movaps xmmword ptr [rsp + 32], xmm2
 	movaps xmmword ptr [rsp + 16], xmm1
 	movaps xmmword ptr [rsp], xmm0
+	mov r14, qword ptr [rip + exper_borrowed_vs_owned_parameters::msgsf_owned@GOTPCREL]
 	lea rdi, [rsp + 88]
 	mov rsi, rsp
-	call exper_borrowed_vs_owned_parameters::messagemf_owned
+	call r14
 	mov ebx, dword ptr [rsp + 88]
 
 	mov rax, qword ptr [rsp + 176]
@@ -52,8 +56,8 @@ exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
 	movups xmm4, xmmword ptr [rsp + 96]
 	movaps xmmword ptr [rsp + 272], xmm4
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 112
-		let (r2, _msg) = messagemf_owned(msg);
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 384
+		let (r2, _msg) = msgsf_owned(msg);
 	mov qword ptr [rsp + 80], rax
 	movaps xmmword ptr [rsp + 64], xmm0
 	movaps xmmword ptr [rsp + 48], xmm1
@@ -62,7 +66,7 @@ exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
 	movaps xmmword ptr [rsp], xmm4
 	lea rdi, [rsp + 88]
 	mov rsi, rsp
-	call exper_borrowed_vs_owned_parameters::messagemf_owned
+	call r14
 	mov eax, dword ptr [rsp + 88]
 
 	mov rcx, qword ptr [rsp + 176]
@@ -78,15 +82,15 @@ exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
 	movups xmm0, xmmword ptr [rsp + 96]
 	movaps xmmword ptr [rsp], xmm0
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 113
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 385
 		assert!(r1 == 2);
 	cmp ebx, 2
-	jne .LBB13_1
+	jne .LBB21_1
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 114
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 386
 		assert!(r1 == r2);
 	cmp eax, 2
-	jne .LBB13_5
+	jne .LBB21_5
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -95,7 +99,7 @@ exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB13_8
+	je .LBB21_8
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -109,33 +113,37 @@ exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 113
 		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
-	add rsp, 368
-	.cfi_def_cfa_offset 16
+	add rsp, 360
+	.cfi_def_cfa_offset 24
 	pop rbx
 
+	.cfi_def_cfa_offset 16
+	pop r14
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB13_8:
+.LBB21_8:
 	.cfi_def_cfa_offset 384
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 115
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 387
 		}
-	add rsp, 368
-	.cfi_def_cfa_offset 16
+	add rsp, 360
+	.cfi_def_cfa_offset 24
 	pop rbx
+	.cfi_def_cfa_offset 16
+	pop r14
 	.cfi_def_cfa_offset 8
 	ret
-.LBB13_1:
+.LBB21_1:
 	.cfi_def_cfa_offset 384
-	lea rdx, [rip + .L__unnamed_13]
+	lea rdx, [rip + .L__unnamed_15]
 	mov esi, 25
-	lea rdi, [rip + .L__unnamed_6]
-	jmp .LBB13_2
-.LBB13_5:
-	lea rdx, [rip + .L__unnamed_14]
-	mov esi, 26
 	lea rdi, [rip + .L__unnamed_8]
-.LBB13_2:
+	jmp .LBB21_2
+.LBB21_5:
+	lea rdx, [rip + .L__unnamed_16]
+	mov esi, 26
+	lea rdi, [rip + .L__unnamed_10]
+.LBB21_2:
 
 	call qword ptr [rip + core::panicking::panic@GOTPCREL]
 
@@ -144,9 +152,9 @@ exper_borrowed_vs_owned_parameters::invoke_messagemf_owned:
 	mov rbx, rax
 
 	mov rdi, rsp
-	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::MessageMf>
+	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::MsgSf>
 	mov rdi, rbx
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_messagemf_owned, .Lfunc_end13-exper_borrowed_vs_owned_parameters::invoke_messagemf_owned
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgsf_owned, .Lfunc_end21-exper_borrowed_vs_owned_parameters::invoke_msgsf_owned
