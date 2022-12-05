@@ -1,0 +1,92 @@
+.section .text.exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default,"ax",@progbits
+	.globl	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default
+	.p2align	4, 0x90
+	.type	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default,@function
+exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default:
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 413
+		pub fn invoke_boxed_msgsf_default() {
+	.cfi_startproc
+	.cfi_personality 155, DW.ref.rust_eh_personality
+	.cfi_lsda 27, .Lexception10
+	push r14
+	.cfi_def_cfa_offset 16
+	push rbx
+	.cfi_def_cfa_offset 24
+	push rax
+	.cfi_def_cfa_offset 32
+	.cfi_offset rbx, -24
+	.cfi_offset r14, -16
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 95
+		unsafe { __rust_alloc(layout.size(), layout.align()) }
+	mov edi, 88
+	mov esi, 8
+	call qword ptr [rip + __rust_alloc@GOTPCREL]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 326
+		match Global.allocate(layout) {
+	test rax, rax
+	je .LBB31_5
+
+	mov rbx, rax
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 1248
+		Box::new(T::default())
+	mov rdi, rax
+	call qword ptr [rip + <exper_borrowed_vs_owned_parameters::MsgSf as core::default::Default>::default@GOTPCREL]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
+	mov rsi, qword ptr [rbx + 48]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
+		if T::IS_ZST || self.cap == 0 {
+	test rsi, rsi
+	je .LBB31_4
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
+	mov rdi, qword ptr [rbx + 56]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/alloc/layout.rs : 452
+		if element_size != 0 && n > Layout::max_size_for_align(align) / element_size {
+	mov rdx, rsi
+	not rdx
+	shr rdx, 63
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 113
+		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
+	call qword ptr [rip + __rust_dealloc@GOTPCREL]
+
+.LBB31_4:
+	mov esi, 88
+	mov edx, 8
+	mov rdi, rbx
+	add rsp, 8
+	.cfi_def_cfa_offset 24
+	pop rbx
+
+	.cfi_def_cfa_offset 16
+	pop r14
+	.cfi_def_cfa_offset 8
+	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
+
+.LBB31_5:
+	.cfi_def_cfa_offset 32
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 328
+		Err(_) => handle_alloc_error(layout),
+	mov edi, 88
+	mov esi, 8
+	call qword ptr [rip + alloc::alloc::handle_alloc_error@GOTPCREL]
+	ud2
+
+	mov r14, rax
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 1248
+		Box::new(T::default())
+	mov rdi, rbx
+	call alloc::alloc::box_free
+	mov rdi, r14
+	call _Unwind_Resume@PLT
+	ud2
+
+	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default, .Lfunc_end31-exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default

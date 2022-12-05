@@ -22,7 +22,7 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_default:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB16_1
+	je .LBB22_1
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -40,7 +40,7 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_default:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB16_1:
+.LBB22_1:
 	.cfi_def_cfa_offset 656
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 333
 		}
@@ -48,4 +48,4 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_default:
 	.cfi_def_cfa_offset 8
 	ret
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_msgmf_default, .Lfunc_end16-exper_borrowed_vs_owned_parameters::invoke_msgmf_default
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgmf_default, .Lfunc_end22-exper_borrowed_vs_owned_parameters::invoke_msgmf_default
