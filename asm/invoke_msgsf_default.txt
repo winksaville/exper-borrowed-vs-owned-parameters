@@ -15,32 +15,32 @@ exper_borrowed_vs_owned_parameters::invoke_msgsf_default:
 		MsgSf::default();
 	call qword ptr [rip + <exper_borrowed_vs_owned_parameters::MsgSf as core::default::Default>::default@GOTPCREL]
 
-		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rsi, qword ptr [rsp + 48]
 
-		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
+		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB15_1
+	je .LBB21_1
 
-		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
+		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rdi, qword ptr [rsp + 56]
 
-		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/alloc/layout.rs : 452
+		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/core/src/alloc/layout.rs : 452
 		if element_size != 0 && n > Layout::max_size_for_align(align) / element_size {
 	mov rdx, rsi
 	not rdx
 	shr rdx, 63
 
-		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 113
+		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/alloc/src/alloc.rs : 113
 		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
 	add rsp, 88
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB15_1:
+.LBB21_1:
 	.cfi_def_cfa_offset 96
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 328
 		}
@@ -48,4 +48,4 @@ exper_borrowed_vs_owned_parameters::invoke_msgsf_default:
 	.cfi_def_cfa_offset 8
 	ret
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_msgsf_default, .Lfunc_end15-exper_borrowed_vs_owned_parameters::invoke_msgsf_default
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgsf_default, .Lfunc_end21-exper_borrowed_vs_owned_parameters::invoke_msgsf_default

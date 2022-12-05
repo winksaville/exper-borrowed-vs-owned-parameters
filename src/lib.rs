@@ -403,3 +403,82 @@ pub fn invoke_msgmf_owned() {
     assert!(r1 == 2);
     assert!(r1 == r2);
 }
+
+#[inline(never)]
+pub fn invoke_boxed_msgof_default() {
+    Box::<MsgOf>::default();
+}
+
+#[inline(never)]
+pub fn invoke_boxed_msgsf_default() {
+    Box::<MsgSf>::default();
+}
+
+#[inline(never)]
+pub fn invoke_boxed_msgmf_default() {
+    Box::<MsgMf>::default();
+}
+
+#[inline(never)]
+pub fn invoke_boxed_msgnf_default() {
+    Box::<MsgNf>::default();
+}
+
+#[inline(never)]
+fn boxed_msgnf(msg: Box<MsgNf>) -> (u32, Box<MsgNf>) {
+    let v = match *msg {
+        MsgNf => 2,
+    };
+    (v, msg)
+}
+
+#[inline(never)]
+pub fn boxed_msgof(msg: Box<MsgOf>) -> (u32, Box<MsgOf>) {
+    (msg.v[0] as u32, msg)
+}
+
+#[inline(never)]
+pub fn boxed_msgsf(msg: Box<MsgSf>) -> (u32, Box<MsgSf>) {
+    (msg.v[0] as u32, msg)
+}
+
+#[inline(never)]
+pub fn boxed_msgmf(msg: Box<MsgMf>) -> (u32, Box<MsgMf>) {
+    (msg.v[0] as u32, msg)
+}
+
+#[inline(never)]
+pub fn invoke_boxed_msgnf() {
+    let msg = Box::<MsgNf>::default();
+    let (r1, msg) = boxed_msgnf(msg);
+    let (r2, _msg) = boxed_msgnf(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_boxed_msgof() {
+    let msg = Box::<MsgOf>::default();
+    let (r1, msg) = boxed_msgof(msg);
+    let (r2, _msg) = boxed_msgof(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_boxed_msgsf() {
+    let msg = Box::<MsgSf>::default();
+    let (r1, msg) = boxed_msgsf(msg);
+    let (r2, _msg) = boxed_msgsf(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_boxed_msgmf() {
+    let msg = Box::<MsgMf>::default();
+    let (r1, msg) = boxed_msgmf(msg);
+    let (r2, _msg) = boxed_msgmf(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
