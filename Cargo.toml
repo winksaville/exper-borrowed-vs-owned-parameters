@@ -20,10 +20,10 @@ name = "bench-crit"
 path = "benches/crit_bench.rs"
 harness = false
 
-[[bench]]
-name = "bench-iai"
-path = "benches/iai_bench.rs"
-harness = false
+#[[bench]]
+#name = "bench-iai"
+#path = "benches/iai_bench.rs"
+#harness = false
 
 
 [features]

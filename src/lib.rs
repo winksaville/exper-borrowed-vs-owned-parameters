@@ -279,7 +279,7 @@ pub fn msgnf_owned(msg: MsgNf) -> (u32, MsgNf) {
     let v = match msg {
         MsgNf => 2,
     };
-    (v, MsgNf)
+    (v, msg)
 }
 
 #[inline(never)]
@@ -481,4 +481,292 @@ pub fn invoke_boxed_msgmf() {
     let (r2, _msg) = boxed_msgmf(msg);
     assert!(r1 == 2);
     assert!(r1 == r2);
+}
+
+// Currently you can't make Default for enums variants according to these:
+//   * https://stackoverflow.com/questions/36775864/use-default-trait-for-struct-as-enum-option
+//   * https://github.com/rust-lang/rfcs/pull/1450
+//   * https://github.com/rust-lang/rfcs/pull/2593
+//pub enum Protocol {
+//    Nf,
+//    Of { v: Vec<u8> },
+//}
+//impl Default for Protocol {
+//    fn default::<Protocol::Nf>() -> Self {
+//        ()
+//    }
+//}
+
+// So instead using the embedded struct is the only way for now
+#[allow(clippy::large_enum_variant)]
+pub enum Protocol {
+    Nf(MsgNf),
+    Of(MsgOf),
+    Sf(MsgSf),
+    Mf(MsgMf),
+}
+
+#[inline(never)]
+pub fn protocol_nf_borrowed(msg: &Protocol) -> u32 {
+    match msg {
+        Protocol::Nf(_) => 2,
+        _ => 0,
+    }
+}
+
+#[inline(never)]
+pub fn protocol_nf_owned(msg: Protocol) -> (u32, Protocol) {
+    let v = match msg {
+        Protocol::Nf(_) => 2,
+        _ => 0,
+    };
+    (v, msg)
+}
+
+#[inline(never)]
+pub fn protocol_of_borrowed(msg: &Protocol) -> u32 {
+    match msg {
+        Protocol::Of(m) => m.v[0] as u32,
+        _ => 0,
+    }
+}
+
+#[inline(never)]
+pub fn protocol_of_owned(msg: Protocol) -> (u32, Protocol) {
+    match &msg {
+        Protocol::Of(m) => (m.v[0] as u32, msg),
+        _ => (0, msg),
+    }
+}
+
+#[inline(never)]
+pub fn protocol_sf_borrowed(msg: &Protocol) -> u32 {
+    match msg {
+        Protocol::Sf(m) => m.v[0] as u32,
+        _ => 0,
+    }
+}
+
+#[inline(never)]
+pub fn protocol_sf_owned(msg: Protocol) -> (u32, Protocol) {
+    match &msg {
+        Protocol::Sf(m) => (m.v[0] as u32, msg),
+        _ => (0, msg),
+    }
+}
+
+#[inline(never)]
+pub fn protocol_mf_borrowed(msg: &Protocol) -> u32 {
+    match msg {
+        Protocol::Mf(m) => m.v[0] as u32,
+        _ => 0,
+    }
+}
+
+#[inline(never)]
+pub fn protocol_mf_owned(msg: Protocol) -> (u32, Protocol) {
+    match &msg {
+        Protocol::Mf(m) => (m.v[0] as u32, msg),
+        _ => (0, msg),
+    }
+}
+
+#[inline(never)]
+pub fn invoke_protocol_nf_default() {
+    let _msg = Protocol::Nf(MsgNf::default());
+}
+
+#[inline(never)]
+pub fn invoke_protocol_of_default() {
+    let _msg = Protocol::Of(MsgOf::default());
+}
+
+#[inline(never)]
+pub fn invoke_protocol_sf_default() {
+    let _msg = Protocol::Sf(MsgSf::default());
+}
+
+#[inline(never)]
+pub fn invoke_protocol_mf_default() {
+    let _msg = Protocol::Mf(MsgMf::default());
+}
+
+#[inline(never)]
+pub fn invoke_protocol_nf_borrowed() {
+    let msg = Protocol::Nf(MsgNf::default());
+    let r1 = protocol_nf_borrowed(&msg);
+    let r2 = protocol_nf_borrowed(&msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_protocol_nf_owned() {
+    let msg = Protocol::Nf(MsgNf::default());
+    let (r1, msg) = protocol_nf_owned(msg);
+    let (r2, _msg) = protocol_nf_owned(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_protocol_of_borrowed() {
+    let msg = Protocol::Of(MsgOf::default());
+    let r1 = protocol_of_borrowed(&msg);
+    let r2 = protocol_of_borrowed(&msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_protocol_of_owned() {
+    let msg = Protocol::Of(MsgOf::default());
+    let (r1, msg) = protocol_of_owned(msg);
+    let (r2, _msg) = protocol_of_owned(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_protocol_sf_borrowed() {
+    let msg = Protocol::Sf(MsgSf::default());
+    let r1 = protocol_sf_borrowed(&msg);
+    let r2 = protocol_sf_borrowed(&msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_protocol_sf_owned() {
+    let msg = Protocol::Sf(MsgSf::default());
+    let (r1, msg) = protocol_sf_owned(msg);
+    let (r2, _msg) = protocol_sf_owned(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_protocol_mf_borrowed() {
+    let msg = Protocol::Mf(MsgMf::default());
+    let r1 = protocol_mf_borrowed(&msg);
+    let r2 = protocol_mf_borrowed(&msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_protocol_mf_owned() {
+    let msg = Protocol::Mf(MsgMf::default());
+    let (r1, msg) = protocol_mf_owned(msg);
+    let (r2, _msg) = protocol_mf_owned(msg);
+    assert!(r1 == 2);
+    assert!(r1 == r2);
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_nf_default() {
+    let _msg = Box::new(Protocol::Nf(MsgNf::default()));
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_of_default() {
+    let _msg = Box::new(Protocol::Of(MsgOf::default()));
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_sf_default() {
+    let _msg = Box::new(Protocol::Sf(MsgSf::default()));
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_mf_default() {
+    let _msg = Box::new(Protocol::Mf(MsgMf::default()));
+}
+
+#[inline(never)]
+fn boxed_protocol_nf(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+    let v = match *msg {
+        Protocol::Nf(_) => 2,
+        _ => 0,
+    };
+    (v, msg)
+}
+
+#[inline(never)]
+fn boxed_protocol_of(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+    let v = match *msg {
+        Protocol::Of(ref m) => m.v[0] as u32,
+        _ => 0,
+    };
+    (v, msg)
+}
+
+#[inline(never)]
+fn boxed_protocol_sf(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+    let v = match *msg {
+        Protocol::Sf(ref m) => m.v[0] as u32,
+        _ => 0,
+    };
+    (v, msg)
+}
+
+#[inline(never)]
+fn boxed_protocol_mf(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+    let v = match *msg {
+        Protocol::Mf(ref m) => m.v[0] as u32,
+        _ => 0,
+    };
+    (v, msg)
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_nf() {
+    let msg = Box::new(Protocol::Nf(MsgNf::default()));
+    //println!("size msg={}", std::mem::size_of_val(&msg));
+    //println!("size *msg={}", std::mem::size_of_val(&*msg));
+    //println!("size MsgNf={}", std::mem::size_of::<MsgNf>());
+    //println!("size Protocol={}", std::mem::size_of::<Protocol>());
+    let (r1, msg) = boxed_protocol_nf(msg);
+    let (r2, _msg) = boxed_protocol_nf(msg);
+    assert_eq!(r1, 2);
+    assert_eq!(r1, r2);
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_of() {
+    let msg = Box::new(Protocol::Of(MsgOf::default()));
+    //println!("size msg={}", std::mem::size_of_val(&msg));
+    //println!("size *msg={}", std::mem::size_of_val(&*msg));
+    //println!("size MsgOf={}", std::mem::size_of::<MsgOf>());
+    //println!("size Protocol={}", std::mem::size_of::<Protocol>());
+    let (r1, msg) = boxed_protocol_of(msg);
+    let (r2, _msg) = boxed_protocol_of(msg);
+    assert_eq!(r1, 2);
+    assert_eq!(r1, r2);
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_sf() {
+    let msg = Box::new(Protocol::Sf(MsgSf::default()));
+    //println!("size msg={}", std::mem::size_of_val(&msg));
+    //println!("size *msg={}", std::mem::size_of_val(&*msg));
+    //println!("size MsgSf={}", std::mem::size_of::<MsgSf>());
+    //println!("size Protocol={}", std::mem::size_of::<Protocol>());
+    let (r1, msg) = boxed_protocol_sf(msg);
+    let (r2, _msg) = boxed_protocol_sf(msg);
+    assert_eq!(r1, 2);
+    assert_eq!(r1, r2);
+}
+
+#[inline(never)]
+pub fn invoke_boxed_protocol_mf() {
+    let msg = Box::new(Protocol::Mf(MsgMf::default()));
+    //println!("size msg={}", std::mem::size_of_val(&msg));
+    //println!("size *msg={}", std::mem::size_of_val(&*msg));
+    //println!("size MsgMf={}", std::mem::size_of::<MsgMf>());
+    //println!("size Protocol={}", std::mem::size_of::<Protocol>());
+    let (r1, msg) = boxed_protocol_mf(msg);
+    let (r2, _msg) = boxed_protocol_mf(msg);
+    assert_eq!(r1, 2);
+    assert_eq!(r1, r2);
 }
