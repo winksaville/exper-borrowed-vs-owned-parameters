@@ -11,4 +11,4 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgnf:
 		}
 	ret
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_msgnf, .Lfunc_end36-exper_borrowed_vs_owned_parameters::invoke_boxed_msgnf
+	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_msgnf, .Lfunc_end41-exper_borrowed_vs_owned_parameters::invoke_boxed_msgnf

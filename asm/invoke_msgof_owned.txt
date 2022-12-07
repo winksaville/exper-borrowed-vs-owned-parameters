@@ -57,33 +57,33 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 367
 		assert!(r1 == 2);
 	cmp ebp, 2
-	jne .LBB25_1
+	jne .LBB30_1
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 368
 		assert!(r1 == r2);
 	cmp eax, 2
-	jne .LBB25_5
+	jne .LBB30_5
 
-		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/core/src/ptr/mod.rs : 490
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rsi, qword ptr [rsp]
 
-		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/alloc/src/raw_vec.rs : 241
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB25_8
+	je .LBB30_8
 
-		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/core/src/ptr/mod.rs : 490
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rdi, qword ptr [rsp + 8]
 
-		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/core/src/alloc/layout.rs : 452
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/alloc/layout.rs : 452
 		if element_size != 0 && n > Layout::max_size_for_align(align) / element_size {
 	mov rdx, rsi
 	not rdx
 	shr rdx, 63
 
-		// /rustc/53e4b9dd74c29cc9308b8d0f10facac70bb101a7/library/alloc/src/alloc.rs : 113
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 113
 		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
 	add rsp, 104
 	.cfi_def_cfa_offset 24
@@ -94,7 +94,7 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB25_8:
+.LBB30_8:
 	.cfi_def_cfa_offset 128
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 369
 		}
@@ -105,17 +105,17 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 	pop rbp
 	.cfi_def_cfa_offset 8
 	ret
-.LBB25_1:
+.LBB30_1:
 	.cfi_def_cfa_offset 128
-	lea rdx, [rip + .L__unnamed_11]
-	mov esi, 25
-	lea rdi, [rip + .L__unnamed_8]
-	jmp .LBB25_2
-.LBB25_5:
 	lea rdx, [rip + .L__unnamed_12]
+	mov esi, 25
+	lea rdi, [rip + .L__unnamed_9]
+	jmp .LBB30_2
+.LBB30_5:
+	lea rdx, [rip + .L__unnamed_13]
 	mov esi, 26
-	lea rdi, [rip + .L__unnamed_10]
-.LBB25_2:
+	lea rdi, [rip + .L__unnamed_11]
+.LBB30_2:
 
 	call qword ptr [rip + core::panicking::panic@GOTPCREL]
 
@@ -128,4 +128,4 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_msgof_owned, .Lfunc_end25-exper_borrowed_vs_owned_parameters::invoke_msgof_owned
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgof_owned, .Lfunc_end30-exper_borrowed_vs_owned_parameters::invoke_msgof_owned

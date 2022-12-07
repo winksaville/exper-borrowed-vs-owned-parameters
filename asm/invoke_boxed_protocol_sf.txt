@@ -1,0 +1,146 @@
+.section .text.exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_sf,"ax",@progbits
+	.globl	exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_sf
+	.p2align	4, 0x90
+	.type	exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_sf,@function
+exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_sf:
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 749
+		pub fn invoke_boxed_protocol_sf() {
+	.cfi_startproc
+	.cfi_personality 155, DW.ref.rust_eh_personality
+	.cfi_lsda 27, .Lexception38
+	push r14
+	.cfi_def_cfa_offset 16
+	push rbx
+	.cfi_def_cfa_offset 24
+	sub rsp, 680
+	.cfi_def_cfa_offset 704
+	.cfi_offset rbx, -24
+	.cfi_offset r14, -16
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 750
+		let msg = Box::new(Protocol::Sf(MsgSf::default()));
+	lea rdi, [rsp + 32]
+	call qword ptr [rip + <exper_borrowed_vs_owned_parameters::MsgSf as core::default::Default>::default@GOTPCREL]
+	mov qword ptr [rsp + 24], 2
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 95
+		unsafe { __rust_alloc(layout.size(), layout.align()) }
+	mov edi, 656
+	mov esi, 8
+	call qword ptr [rip + __rust_alloc@GOTPCREL]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 326
+		match Global.allocate(layout) {
+	test rax, rax
+	je .LBB75_1
+
+	mov rbx, rax
+
+	lea r14, [rsp + 24]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 220
+		Box::new(x)
+	mov edx, 656
+	mov rdi, rax
+	mov rsi, r14
+	call qword ptr [rip + memcpy@GOTPCREL]
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 755
+		let (r1, msg) = boxed_protocol_sf(msg);
+	mov rdi, rbx
+	call exper_borrowed_vs_owned_parameters::boxed_protocol_sf
+	mov ebx, eax
+
+	mov rdi, rdx
+
+	mov dword ptr [rsp + 8], eax
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 756
+		let (r2, _msg) = boxed_protocol_sf(msg);
+	call exper_borrowed_vs_owned_parameters::boxed_protocol_sf
+
+	mov dword ptr [rsp + 12], eax
+	mov qword ptr [rsp + 16], rdx
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 757
+		assert_eq!(r1, 2);
+	cmp ebx, 2
+
+	jne .LBB75_7
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 758
+		assert_eq!(r1, r2);
+	cmp eax, 2
+	jne .LBB75_12
+
+	lea rdi, [rsp + 16]
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 759
+		}
+	call core::ptr::drop_in_place<alloc::boxed::Box<exper_borrowed_vs_owned_parameters::Protocol>>
+
+	add rsp, 680
+	.cfi_def_cfa_offset 24
+	pop rbx
+
+	.cfi_def_cfa_offset 16
+	pop r14
+	.cfi_def_cfa_offset 8
+	ret
+.LBB75_1:
+	.cfi_def_cfa_offset 704
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 328
+		Err(_) => handle_alloc_error(layout),
+	mov edi, 656
+	mov esi, 8
+	call qword ptr [rip + alloc::alloc::handle_alloc_error@GOTPCREL]
+
+	jmp .LBB75_2
+
+.LBB75_7:
+	lea rcx, [rip + .L__unnamed_60]
+	lea rsi, [rip + .L__unnamed_56]
+	jmp .LBB75_8
+
+.LBB75_12:
+	lea rcx, [rip + .L__unnamed_61]
+	lea rsi, [rsp + 12]
+
+.LBB75_8:
+	mov qword ptr [r14 + 16], 0
+
+	lea rdi, [rsp + 8]
+	mov rdx, r14
+
+	call core::panicking::assert_failed
+
+.LBB75_2:
+	ud2
+
+	mov rbx, rax
+	lea rdi, [rsp + 24]
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 221
+		}
+	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::Protocol>
+	jmp .LBB75_5
+
+	mov rbx, rax
+
+	lea rdi, [rsp + 16]
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 759
+		}
+	call core::ptr::drop_in_place<alloc::boxed::Box<exper_borrowed_vs_owned_parameters::Protocol>>
+
+.LBB75_5:
+	mov rdi, rbx
+	call _Unwind_Resume@PLT
+	ud2
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 749
+		pub fn invoke_boxed_protocol_sf() {
+	call qword ptr [rip + core::panicking::panic_no_unwind@GOTPCREL]
+	ud2
+
+	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_sf, .Lfunc_end75-exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_sf
