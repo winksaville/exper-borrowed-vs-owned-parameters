@@ -12,7 +12,7 @@ use exper_borrowed_vs_owned_parameters::{
     invoke_protocol_mf_borrowed, invoke_protocol_mf_default, invoke_protocol_mf_owned,
     invoke_protocol_nf_borrowed, invoke_protocol_nf_default, invoke_protocol_nf_owned,
     invoke_protocol_of_borrowed, invoke_protocol_of_default, invoke_protocol_of_owned,
-    invoke_protocol_sf_borrowed, invoke_protocol_sf_default, invoke_protocol_sf_owned,
+    invoke_protocol_sf_borrowed, invoke_protocol_sf_default, invoke_protocol_sf_owned, vec_box_protocol_msgs, channel_box_protocol_msgs,
 };
 
 #[allow(unused)]
@@ -212,6 +212,15 @@ fn compare_protocol_mf(c: &mut Criterion) {
     });
 }
 
+fn compare_allocate_process_msgs(c: &mut Criterion) {
+    let mut group = c.benchmark_group("compare_allocate_process_msgs");
+    group.bench_function("vec_box_protocol_msgs", |b| {
+        b.iter(|| black_box(vec_box_protocol_msgs(1000)));
+    });
+    group.bench_function("channel_box_protocol_msgs", |b| {
+        b.iter(|| black_box(channel_box_protocol_msgs(1000)));
+    });
+}
 criterion_group!(
     benches,
     borrowed,
@@ -225,5 +234,6 @@ criterion_group!(
     compare_protocol_of,
     compare_protocol_sf,
     compare_protocol_mf,
+    compare_allocate_process_msgs,
 );
 criterion_main!(benches);

@@ -12,7 +12,7 @@ use exper_borrowed_vs_owned_parameters::{
     invoke_protocol_nf_borrowed, invoke_protocol_nf_default, invoke_protocol_nf_owned,
     invoke_protocol_of_borrowed, invoke_protocol_of_default, invoke_protocol_of_owned,
     invoke_protocol_sf_borrowed, invoke_protocol_sf_default, invoke_protocol_sf_owned,
-    view_discriminant,
+    view_discriminant, vec_box_protocol_msgs, channel_box_protocol_msgs,
 };
 
 fn main() {
@@ -59,4 +59,6 @@ fn main() {
     invoke_boxed_protocol_mf_inline_always();
     invoke_boxed_protocol_mf_inline_no_suggestion();
     view_discriminant();
+    vec_box_protocol_msgs(1000);
+    channel_box_protocol_msgs(1000);
 }

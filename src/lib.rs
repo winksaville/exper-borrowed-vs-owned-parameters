@@ -1,3 +1,5 @@
+use std::sync::mpsc::{channel, Receiver};
+
 /// Investigate the difference between borrowed and
 /// owned parameters to functions.
 
@@ -828,4 +830,54 @@ pub fn view_discriminant() {
         "discrimiant::Mf {:?}",
         discriminant(&Protocol::Mf(MsgMf::default()))
     );
+}
+
+#[inline(never)]
+pub fn process_owned_msg(msg: Box<Protocol>) -> Box<Protocol> {
+    msg
+}
+
+#[inline(never)]
+pub fn vec_box_protocol_msgs(count: usize) {
+    let mut msgs = Vec::<Box<Protocol>>::with_capacity(count);
+    for _ in 0..msgs.capacity() {
+        let msg = Box::new(Protocol::Nf(MsgNf::default()));
+        msgs.push(msg);
+    }
+
+    for _ in 0..msgs.len() {
+        if let Some(msg) = msgs.pop() {
+            process_owned_msg(msg);
+        }
+    }
+}
+
+#[inline(never)]
+pub fn channel_box_protocol_msgs(count: usize) {
+    let (tx, rx) = channel::<Box<Protocol>>();
+    for _ in 0..count {
+        let msg = Box::new(Protocol::Nf(MsgNf::default()));
+        if let Err(why) = tx.send(msg) {
+            panic!("{}", why);
+        }
+    }
+
+    for _ in 0..count {
+        if let Ok(msg) = rx.try_recv() {
+            process_owned_msg(msg);
+        } else {
+            break;
+        }
+    }
+}
+
+#[inline(never)]
+pub fn channel_rx_box_protocol_msgs(rx: Receiver<Box<Protocol>>) {
+    loop {
+        if let Ok(msg) = rx.try_recv() {
+            process_owned_msg(msg);
+        } else {
+            break;
+        }
+    }
 }
