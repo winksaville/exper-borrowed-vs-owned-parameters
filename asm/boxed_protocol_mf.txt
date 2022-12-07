@@ -1,0 +1,73 @@
+.section .text.exper_borrowed_vs_owned_parameters::boxed_protocol_mf,"ax",@progbits
+	.p2align	4, 0x90
+	.type	exper_borrowed_vs_owned_parameters::boxed_protocol_mf,@function
+exper_borrowed_vs_owned_parameters::boxed_protocol_mf:
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 714
+		fn boxed_protocol_mf(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+	.cfi_startproc
+	.cfi_personality 155, DW.ref.rust_eh_personality
+	.cfi_lsda 27, .Lexception35
+	push rbx
+	.cfi_def_cfa_offset 16
+	sub rsp, 16
+	.cfi_def_cfa_offset 32
+	.cfi_offset rbx, -16
+	mov qword ptr [rsp + 8], rdi
+	xor eax, eax
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 715
+		let v = match *msg {
+	cmp dword ptr [rdi], 3
+	jne .LBB74_5
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/slice/index.rs : 260
+		&(*slice)[self]
+	cmp qword ptr [rdi + 504], 0
+	je .LBB74_2
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 716
+		Protocol::Mf(ref m) => m.v[0] as u32,
+	mov rax, qword ptr [rdi + 496]
+	movzx eax, byte ptr [rax]
+
+.LBB74_5:
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 720
+		}
+	mov rdx, rdi
+	add rsp, 16
+	.cfi_def_cfa_offset 16
+	pop rbx
+	.cfi_def_cfa_offset 8
+	ret
+
+.LBB74_2:
+	.cfi_def_cfa_offset 32
+
+		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/slice/index.rs : 260
+		&(*slice)[self]
+	lea rdx, [rip + .L__unnamed_56]
+	xor edi, edi
+
+	xor esi, esi
+	call qword ptr [rip + core::panicking::panic_bounds_check@GOTPCREL]
+
+	ud2
+
+	mov rbx, rax
+
+	lea rdi, [rsp + 8]
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 720
+		}
+	call core::ptr::drop_in_place<alloc::boxed::Box<exper_borrowed_vs_owned_parameters::Protocol>>
+
+	mov rdi, rbx
+	call _Unwind_Resume@PLT
+	ud2
+
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 714
+		fn boxed_protocol_mf(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+	call qword ptr [rip + core::panicking::panic_no_unwind@GOTPCREL]
+	ud2
+
+	.size	exper_borrowed_vs_owned_parameters::boxed_protocol_mf, .Lfunc_end74-exper_borrowed_vs_owned_parameters::boxed_protocol_mf

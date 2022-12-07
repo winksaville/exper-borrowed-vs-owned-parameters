@@ -405,6 +405,11 @@ pub fn invoke_msgmf_owned() {
 }
 
 #[inline(never)]
+pub fn invoke_boxed_msgnf_default() {
+    Box::<MsgNf>::default();
+}
+
+#[inline(never)]
 pub fn invoke_boxed_msgof_default() {
     Box::<MsgOf>::default();
 }
@@ -417,11 +422,6 @@ pub fn invoke_boxed_msgsf_default() {
 #[inline(never)]
 pub fn invoke_boxed_msgmf_default() {
     Box::<MsgMf>::default();
-}
-
-#[inline(never)]
-pub fn invoke_boxed_msgnf_default() {
-    Box::<MsgNf>::default();
 }
 
 #[inline(never)]
@@ -769,4 +769,63 @@ pub fn invoke_boxed_protocol_mf() {
     let (r2, _msg) = boxed_protocol_mf(msg);
     assert_eq!(r1, 2);
     assert_eq!(r1, r2);
+}
+
+#[inline(always)]
+pub fn boxed_protocol_mf_inline_always(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+    let v = match *msg {
+        Protocol::Mf(ref m) => m.v[0] as u32,
+        _ => 0,
+    };
+    (v, msg)
+}
+
+pub fn boxed_protocol_mf_inline_no_suggestion(msg: Box<Protocol>) -> (u32, Box<Protocol>) {
+    let v = match *msg {
+        Protocol::Mf(ref m) => m.v[0] as u32,
+        _ => 0,
+    };
+    (v, msg)
+}
+
+// See what the code looks like if we "inline_always"
+#[inline(never)]
+pub fn invoke_boxed_protocol_mf_inline_always() {
+    let msg = Box::new(Protocol::Mf(MsgMf::default()));
+    let (r1, msg) = boxed_protocol_mf_inline_always(msg);
+    let (r2, _msg) = boxed_protocol_mf_inline_always(msg);
+    assert_eq!(r1, 2);
+    assert_eq!(r1, r2);
+}
+
+// See what the code looks like if we "inline_no_suggestion"
+#[inline(never)]
+pub fn invoke_boxed_protocol_mf_inline_no_suggestion() {
+    let msg = Box::new(Protocol::Mf(MsgMf::default()));
+    let (r1, msg) = boxed_protocol_mf_inline_no_suggestion(msg);
+    let (r2, _msg) = boxed_protocol_mf_inline_no_suggestion(msg);
+    assert_eq!(r1, 2);
+    assert_eq!(r1, r2);
+}
+
+// Print what the discriminant so we know what it is.
+pub fn view_discriminant() {
+    use std::mem::discriminant;
+
+    println!(
+        "discrimiant::Nf {:?}",
+        discriminant(&Protocol::Nf(MsgNf::default()))
+    );
+    println!(
+        "discrimiant::Of {:?}",
+        discriminant(&Protocol::Of(MsgOf::default()))
+    );
+    println!(
+        "discrimiant::Sf {:?}",
+        discriminant(&Protocol::Sf(MsgSf::default()))
+    );
+    println!(
+        "discrimiant::Mf {:?}",
+        discriminant(&Protocol::Mf(MsgMf::default()))
+    );
 }

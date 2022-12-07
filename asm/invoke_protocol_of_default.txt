@@ -19,7 +19,7 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_of_default:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB54_1
+	je .LBB56_1
 
 	mov rdi, qword ptr [rsp + 8]
 
@@ -35,7 +35,7 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_of_default:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB54_1:
+.LBB56_1:
 	.cfi_def_cfa_offset 32
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 582
 		}
@@ -43,4 +43,4 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_of_default:
 	.cfi_def_cfa_offset 8
 	ret
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_of_default, .Lfunc_end54-exper_borrowed_vs_owned_parameters::invoke_protocol_of_default
+	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_of_default, .Lfunc_end56-exper_borrowed_vs_owned_parameters::invoke_protocol_of_default

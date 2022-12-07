@@ -30,7 +30,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 326
 		match Global.allocate(layout) {
 	test rax, rax
-	je .LBB43_15
+	je .LBB45_15
 
 	mov rbx, rax
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 1248
@@ -56,12 +56,12 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 473
 		assert!(r1 == 2);
 	cmp ebp, 2
-	jne .LBB43_3
+	jne .LBB45_3
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 474
 		assert!(r1 == r2);
 	cmp eax, 2
-	jne .LBB43_9
+	jne .LBB45_9
 
 	mov rbx, rdx
 
@@ -72,7 +72,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB43_13
+	je .LBB45_13
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -88,7 +88,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
 	call qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB43_13:
+.LBB45_13:
 	mov esi, 88
 	mov edx, 8
 	mov rdi, rbx
@@ -104,7 +104,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB43_15:
+.LBB45_15:
 	.cfi_def_cfa_offset 48
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 328
 		Err(_) => handle_alloc_error(layout),
@@ -113,16 +113,16 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 	call qword ptr [rip + alloc::alloc::handle_alloc_error@GOTPCREL]
 	ud2
 
-.LBB43_3:
-	lea rcx, [rip + .L__unnamed_27]
+.LBB45_3:
+	lea rcx, [rip + .L__unnamed_29]
 	mov esi, 25
-	lea rdi, [rip + .L__unnamed_9]
-	jmp .LBB43_4
-.LBB43_9:
-	lea rcx, [rip + .L__unnamed_28]
-	mov esi, 26
 	lea rdi, [rip + .L__unnamed_11]
-.LBB43_4:
+	jmp .LBB45_4
+.LBB45_9:
+	lea rcx, [rip + .L__unnamed_30]
+	mov esi, 26
+	lea rdi, [rip + .L__unnamed_13]
+.LBB45_4:
 
 	mov rdx, rcx
 
@@ -136,7 +136,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 		Box::new(T::default())
 	mov rdi, rbx
 	call alloc::alloc::box_free
-	jmp .LBB43_7
+	jmp .LBB45_7
 
 	mov r14, rax
 
@@ -146,7 +146,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 		}
 	call core::ptr::drop_in_place<alloc::boxed::Box<exper_borrowed_vs_owned_parameters::MsgSf>>
 
-.LBB43_7:
+.LBB45_7:
 	mov rdi, r14
 	call _Unwind_Resume@PLT
 	ud2
@@ -156,4 +156,4 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf:
 	call qword ptr [rip + core::panicking::panic_no_unwind@GOTPCREL]
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf, .Lfunc_end43-exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf
+	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf, .Lfunc_end45-exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf

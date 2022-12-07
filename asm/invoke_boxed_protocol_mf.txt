@@ -32,7 +32,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 326
 		match Global.allocate(layout) {
 	test rax, rax
-	je .LBB76_1
+	je .LBB78_1
 
 	mov rbx, rax
 
@@ -66,12 +66,12 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 		assert_eq!(r1, 2);
 	cmp ebx, 2
 
-	jne .LBB76_7
+	jne .LBB78_7
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 771
 		assert_eq!(r1, r2);
 	cmp eax, 2
-	jne .LBB76_12
+	jne .LBB78_12
 
 	lea rdi, [rsp + 16]
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 772
@@ -86,7 +86,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 	pop r14
 	.cfi_def_cfa_offset 8
 	ret
-.LBB76_1:
+.LBB78_1:
 	.cfi_def_cfa_offset 704
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 328
@@ -95,18 +95,18 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 	mov esi, 8
 	call qword ptr [rip + alloc::alloc::handle_alloc_error@GOTPCREL]
 
-	jmp .LBB76_2
+	jmp .LBB78_2
 
-.LBB76_7:
-	lea rcx, [rip + .L__unnamed_62]
-	lea rsi, [rip + .L__unnamed_56]
-	jmp .LBB76_8
+.LBB78_7:
+	lea rcx, [rip + .L__unnamed_64]
+	lea rsi, [rip + .L__unnamed_58]
+	jmp .LBB78_8
 
-.LBB76_12:
-	lea rcx, [rip + .L__unnamed_63]
+.LBB78_12:
+	lea rcx, [rip + .L__unnamed_65]
 	lea rsi, [rsp + 12]
 
-.LBB76_8:
+.LBB78_8:
 	mov qword ptr [r14 + 16], 0
 
 	lea rdi, [rsp + 8]
@@ -114,7 +114,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 
 	call core::panicking::assert_failed
 
-.LBB76_2:
+.LBB78_2:
 	ud2
 
 	mov rbx, rax
@@ -123,7 +123,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 221
 		}
 	call core::ptr::drop_in_place<exper_borrowed_vs_owned_parameters::Protocol>
-	jmp .LBB76_5
+	jmp .LBB78_5
 
 	mov rbx, rax
 
@@ -133,7 +133,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 		}
 	call core::ptr::drop_in_place<alloc::boxed::Box<exper_borrowed_vs_owned_parameters::Protocol>>
 
-.LBB76_5:
+.LBB78_5:
 	mov rdi, rbx
 	call _Unwind_Resume@PLT
 	ud2
@@ -143,4 +143,4 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf:
 	call qword ptr [rip + core::panicking::panic_no_unwind@GOTPCREL]
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf, .Lfunc_end76-exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf
+	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf, .Lfunc_end78-exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_mf

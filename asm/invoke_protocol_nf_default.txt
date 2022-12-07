@@ -11,4 +11,4 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_nf_default:
 		}
 	ret
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_nf_default, .Lfunc_end53-exper_borrowed_vs_owned_parameters::invoke_protocol_nf_default
+	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_nf_default, .Lfunc_end55-exper_borrowed_vs_owned_parameters::invoke_protocol_nf_default

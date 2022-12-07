@@ -4,7 +4,7 @@
 	.type	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default,@function
 exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default:
 
-		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 413
+		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 418
 		pub fn invoke_boxed_msgsf_default() {
 	.cfi_startproc
 	.cfi_personality 155, DW.ref.rust_eh_personality
@@ -27,7 +27,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 326
 		match Global.allocate(layout) {
 	test rax, rax
-	je .LBB36_5
+	je .LBB38_5
 
 	mov rbx, rax
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 1248
@@ -42,7 +42,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB36_4
+	je .LBB38_4
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -58,7 +58,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default:
 		unsafe { __rust_dealloc(ptr, layout.size(), layout.align()) }
 	call qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB36_4:
+.LBB38_4:
 	mov esi, 88
 	mov edx, 8
 	mov rdi, rbx
@@ -71,7 +71,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB36_5:
+.LBB38_5:
 	.cfi_def_cfa_offset 32
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 328
 		Err(_) => handle_alloc_error(layout),
@@ -89,4 +89,4 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default:
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default, .Lfunc_end36-exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default
+	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default, .Lfunc_end38-exper_borrowed_vs_owned_parameters::invoke_boxed_msgsf_default

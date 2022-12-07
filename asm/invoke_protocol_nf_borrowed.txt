@@ -26,7 +26,7 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_nf_borrowed:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 599
 		assert!(r1 == 2);
 	cmp eax, 2
-	jne .LBB57_1
+	jne .LBB59_1
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 601
 		}
@@ -35,13 +35,13 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_nf_borrowed:
 	pop rbx
 	.cfi_def_cfa_offset 8
 	ret
-.LBB57_1:
+.LBB59_1:
 	.cfi_def_cfa_offset 672
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 599
 		assert!(r1 == 2);
-	lea rdi, [rip + .L__unnamed_9]
-	lea rdx, [rip + .L__unnamed_37]
+	lea rdi, [rip + .L__unnamed_11]
+	lea rdx, [rip + .L__unnamed_39]
 	mov esi, 25
 	call qword ptr [rip + core::panicking::panic@GOTPCREL]
 
@@ -56,4 +56,4 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_nf_borrowed:
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_nf_borrowed, .Lfunc_end57-exper_borrowed_vs_owned_parameters::invoke_protocol_nf_borrowed
+	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_nf_borrowed, .Lfunc_end59-exper_borrowed_vs_owned_parameters::invoke_protocol_nf_borrowed

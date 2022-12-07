@@ -57,12 +57,12 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 367
 		assert!(r1 == 2);
 	cmp ebp, 2
-	jne .LBB30_1
+	jne .LBB32_1
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 368
 		assert!(r1 == r2);
 	cmp eax, 2
-	jne .LBB30_5
+	jne .LBB32_5
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -71,7 +71,7 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB30_8
+	je .LBB32_8
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -94,7 +94,7 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB30_8:
+.LBB32_8:
 	.cfi_def_cfa_offset 128
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 369
 		}
@@ -105,17 +105,17 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 	pop rbp
 	.cfi_def_cfa_offset 8
 	ret
-.LBB30_1:
+.LBB32_1:
 	.cfi_def_cfa_offset 128
-	lea rdx, [rip + .L__unnamed_12]
+	lea rdx, [rip + .L__unnamed_14]
 	mov esi, 25
-	lea rdi, [rip + .L__unnamed_9]
-	jmp .LBB30_2
-.LBB30_5:
-	lea rdx, [rip + .L__unnamed_13]
-	mov esi, 26
 	lea rdi, [rip + .L__unnamed_11]
-.LBB30_2:
+	jmp .LBB32_2
+.LBB32_5:
+	lea rdx, [rip + .L__unnamed_15]
+	mov esi, 26
+	lea rdi, [rip + .L__unnamed_13]
+.LBB32_2:
 
 	call qword ptr [rip + core::panicking::panic@GOTPCREL]
 
@@ -128,4 +128,4 @@ exper_borrowed_vs_owned_parameters::invoke_msgof_owned:
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_msgof_owned, .Lfunc_end30-exper_borrowed_vs_owned_parameters::invoke_msgof_owned
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgof_owned, .Lfunc_end32-exper_borrowed_vs_owned_parameters::invoke_msgof_owned

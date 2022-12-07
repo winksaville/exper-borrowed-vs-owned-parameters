@@ -31,7 +31,6 @@ gen_asm "invoke_boxed_msgof"
 gen_asm "invoke_boxed_msgsf"
 gen_asm "invoke_boxed_msgmf"
 
-
 gen_asm "invoke_protocol_nf_default"
 gen_asm "invoke_protocol_of_default"
 gen_asm "invoke_protocol_sf_default"
@@ -54,3 +53,9 @@ gen_asm "invoke_boxed_protocol_nf"
 gen_asm "invoke_boxed_protocol_of"
 gen_asm "invoke_boxed_protocol_sf"
 gen_asm "invoke_boxed_protocol_mf"
+
+gen_asm "invoke_boxed_protocol_mf_inline_always"
+gen_asm "invoke_boxed_protocol_mf_inline_no_suggestion"
+gen_asm "boxed_protocol_mf"
+#gen_asm "boxed_protocol_mf_inline_always" # cargo asm repoort "No matching function"
+gen_asm "boxed_protocol_mf_inline_no_suggestion"

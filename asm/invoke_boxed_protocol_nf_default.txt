@@ -27,7 +27,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_nf_default:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 326
 		match Global.allocate(layout) {
 	test rax, rax
-	je .LBB65_1
+	je .LBB67_1
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/boxed.rs : 220
 		Box::new(x)
@@ -46,7 +46,7 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_nf_default:
 	pop rbx
 	.cfi_def_cfa_offset 8
 	ret
-.LBB65_1:
+.LBB67_1:
 	.cfi_def_cfa_offset 688
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/alloc.rs : 328
@@ -66,4 +66,4 @@ exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_nf_default:
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_nf_default, .Lfunc_end65-exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_nf_default
+	.size	exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_nf_default, .Lfunc_end67-exper_borrowed_vs_owned_parameters::invoke_boxed_protocol_nf_default

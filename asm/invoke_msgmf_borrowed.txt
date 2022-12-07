@@ -37,12 +37,12 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 394
 		assert!(r1 == 2);
 	cmp ebx, 2
-	jne .LBB33_3
+	jne .LBB35_3
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 395
 		assert!(r1 == r2);
 	cmp eax, 2
-	jne .LBB33_7
+	jne .LBB35_7
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -51,7 +51,7 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed:
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB33_9
+	je .LBB35_9
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
@@ -71,7 +71,7 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB33_9:
+.LBB35_9:
 	.cfi_def_cfa_offset 672
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 396
 		}
@@ -80,17 +80,17 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed:
 	pop rbx
 	.cfi_def_cfa_offset 8
 	ret
-.LBB33_3:
+.LBB35_3:
 	.cfi_def_cfa_offset 672
-	lea rdx, [rip + .L__unnamed_18]
+	lea rdx, [rip + .L__unnamed_20]
 	mov esi, 25
-	lea rdi, [rip + .L__unnamed_9]
-	jmp .LBB33_4
-.LBB33_7:
-	lea rdx, [rip + .L__unnamed_19]
-	mov esi, 26
 	lea rdi, [rip + .L__unnamed_11]
-.LBB33_4:
+	jmp .LBB35_4
+.LBB35_7:
+	lea rdx, [rip + .L__unnamed_21]
+	mov esi, 26
+	lea rdi, [rip + .L__unnamed_13]
+.LBB35_4:
 
 	call qword ptr [rip + core::panicking::panic@GOTPCREL]
 
@@ -103,4 +103,4 @@ exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed:
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed, .Lfunc_end33-exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed
+	.size	exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed, .Lfunc_end35-exper_borrowed_vs_owned_parameters::invoke_msgmf_borrowed

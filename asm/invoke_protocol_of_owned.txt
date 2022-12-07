@@ -72,65 +72,65 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned:
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 626
 		assert!(r1 == 2);
 	cmp r12d, 2
-	jne .LBB60_1
+	jne .LBB62_1
 
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 627
 		assert!(r1 == r2);
 	cmp ebx, 2
-	jne .LBB60_5
+	jne .LBB62_5
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rax, qword ptr [rsp + 24]
 	test rax, rax
-	je .LBB60_17
+	je .LBB62_17
 
 	cmp eax, 1
-	je .LBB60_13
+	je .LBB62_13
 
 	cmp eax, 2
-	jne .LBB60_10
+	jne .LBB62_10
 
 	mov rsi, qword ptr [rsp + 80]
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB60_17
+	je .LBB62_17
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rdi, qword ptr [rsp + 88]
 
-	jmp .LBB60_12
+	jmp .LBB62_12
 
-.LBB60_13:
+.LBB62_13:
 	mov rsi, qword ptr [rsp + 32]
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB60_17
+	je .LBB62_17
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rdi, qword ptr [rsp + 40]
 
-	jmp .LBB60_12
+	jmp .LBB62_12
 
-.LBB60_10:
+.LBB62_10:
 	mov rsi, qword ptr [rsp + 512]
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/alloc/src/raw_vec.rs : 241
 		if T::IS_ZST || self.cap == 0 {
 	test rsi, rsi
-	je .LBB60_17
+	je .LBB62_17
 
 		// /rustc/32e613bbaafee1bcabba48a2257b838f8d1c03d3/library/core/src/ptr/mod.rs : 490
 		pub unsafe fn drop_in_place<T: ?Sized>(to_drop: *mut T) {
 	mov rdi, qword ptr [rsp + 520]
 
-.LBB60_12:
+.LBB62_12:
 	mov rdx, rsi
 	not rdx
 	shr rdx, 63
@@ -150,7 +150,7 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned:
 	.cfi_def_cfa_offset 8
 	jmp qword ptr [rip + __rust_dealloc@GOTPCREL]
 
-.LBB60_17:
+.LBB62_17:
 	.cfi_def_cfa_offset 2048
 		// /home/wink/prgs/rust/myrepos/exper-borrowed-vs-owned-parameters/src/lib.rs : 628
 		}
@@ -167,17 +167,17 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned:
 	pop rbp
 	.cfi_def_cfa_offset 8
 	ret
-.LBB60_1:
+.LBB62_1:
 	.cfi_def_cfa_offset 2048
-	lea rcx, [rip + .L__unnamed_42]
+	lea rcx, [rip + .L__unnamed_44]
 	mov esi, 25
-	lea rdi, [rip + .L__unnamed_9]
-	jmp .LBB60_2
-.LBB60_5:
-	lea rcx, [rip + .L__unnamed_43]
-	mov esi, 26
 	lea rdi, [rip + .L__unnamed_11]
-.LBB60_2:
+	jmp .LBB62_2
+.LBB62_5:
+	lea rcx, [rip + .L__unnamed_45]
+	mov esi, 26
+	lea rdi, [rip + .L__unnamed_13]
+.LBB62_2:
 
 	mov rdx, rcx
 	call qword ptr [rip + core::panicking::panic@GOTPCREL]
@@ -191,4 +191,4 @@ exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned:
 	call _Unwind_Resume@PLT
 	ud2
 
-	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned, .Lfunc_end60-exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned
+	.size	exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned, .Lfunc_end62-exper_borrowed_vs_owned_parameters::invoke_protocol_of_owned
